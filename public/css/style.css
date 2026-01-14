@@ -1,0 +1,1251 @@
+﻿/* === VARIABLES === */
+:root {
+    --primary-color: #4aa6f0; /* Soft baby blue primary tone */
+    --secondary-color: #7fc8ff; /* Sky blue accent */
+    --text-color: #1f355e; /* Deep navy for contrast */
+    --background-color: #f4f9ff; /* Frosted background tint */
+    --card-background: #ffffff;
+    --border-color: #d6e6f7; /* Gentle blue-gray border */
+    --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    --container-width: 1200px;
+    --border-radius: 8px;
+    --box-shadow: 0 10px 30px rgba(74, 166, 240, 0.12);
+}
+
+/* Load More Button Styles */
+.load-more-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.loading-spinner {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+/* Product grid transition for smooth loading */
+.product-card {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.product-card.loading {
+    opacity: 0.6;
+}
+
+/* === BASE STYLES === */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* === HEADER & NAVIGATION === */
+.navbar {
+    background-color: var(--card-background);
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.nav-logo img {
+    width: 60px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+.nav-item {
+    margin-left: 1.5rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link-button,
+button.nav-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--text-color);
+    transition: all 0.3s ease-in-out;
+}
+
+/* === HERO SECTION === */
+.hero {
+    position: relative;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.hero__slider {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 58px);
+    overflow: hidden;
+}
+
+.hero__slide {
+    display: none;
+    width: 100%;
+}
+
+.hero__slide--active {
+    display: block;
+}
+
+.hero__image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.hero__nav {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.75rem;
+}
+
+.hero__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero__dot--active {
+    background-color: var(--primary-color);
+}
+
+/* === FEATURED PRODUCTS === */
+.featured-products {
+    padding: 3rem 0;
+}
+
+.featured-products__title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.featured-products__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.featured-products__empty {
+    text-align: center;
+    grid-column: 1 / -1;
+    color: #777;
+}
+
+/* === PRODUCT CARD === */
+.product-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.product-card__link {
+    display: block;
+}
+
+.product-card__image-container {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.product-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-card__image {
+    transform: scale(1.05);
+}
+
+.product-card__no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    color: #aaa;
+}
+
+.product-card__info {
+    padding: 1rem;
+}
+
+.product-card__name {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-card__price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/*
+ * =========================================
+ * === BUTTONS & ACTIONS ===
+ * =========================================
+ */
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+}
+
+.btn--primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.btn--primary:hover {
+    background-color: #2980b9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Penyesuaian untuk container tombol di halaman detail */
+.product-detail__actions {
+    margin-top: 2rem;
+}
+
+/*
+ * =========================================
+ * === ALL PRODUCTS PAGE ===
+ * =========================================
+ */
+
+.products-page {
+    padding-bottom: 3rem;
+}
+
+/* Page Header */
+.page-header {
+    background-color: var(--card-background);
+    padding: 2.5rem 0;
+    margin-bottom: 3rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.page-header__title {
+    font-size: 2.5rem;
+    color: var(--text-color);
+}
+
+/* Category Filter Section */
+.category-filter-section {
+    margin-bottom: 2rem;
+}
+
+.category-filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.category-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.category-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Products Grid */
+.products-grid-section {
+    padding: 0;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.products-grid__empty {
+    text-align: center;
+    grid-column: 1 / -1;
+    color: #777;
+    padding: 3rem 0;
+}
+
+/*
+ * =========================================
+ * === PAGINATION ===
+ * =========================================
+ */
+
+.pagination-container {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination li {
+    margin: 0 0.25rem;
+}
+
+.pagination li a,
+.pagination li span {
+    display: block;
+    padding: 0.75rem 1.25rem;
+    color: var(--primary-color);
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.pagination li a:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.pagination li.active span {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    cursor: default;
+}
+
+.pagination li.disabled span {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+/*
+ * Tailwind-style pagination markup support
+ * Laravel's default paginator may output a Tailwind template
+ * which uses utility classes that don't exist here. These rules
+ * make it render nicely without Tailwind.
+ */
+.pagination-container nav[role="navigation"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.pagination-container nav[role="navigation"] > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Hide the first Tailwind block (Prev/Next-only) to avoid duplication */
+.pagination-container nav[role="navigation"] > div:first-child {
+    display: none !important;
+}
+
+/* Hide elements that Tailwind would hide */
+.pagination-container .hidden {
+    display: none !important;
+}
+
+/* Ensure the numeric pager (hidden sm:flex) shows on all sizes */
+.pagination-container .hidden.sm\:flex {
+    display: flex !important;
+}
+
+/* Screen-reader only text */
+.pagination-container .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Normalize item look (links and actionable spans only) */
+.pagination-container nav[role="navigation"] a,
+.pagination-container nav[role="navigation"] span[aria-current],
+.pagination-container nav[role="navigation"] span[aria-disabled] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0.9rem;
+    color: var(--primary-color);
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.pagination-container nav[role="navigation"] a:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.pagination-container nav[role="navigation"] .active > span {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+/* Fix giant SVG arrows (no Tailwind sizing) */
+.pagination-container nav[role="navigation"] svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Hide the default "Showing X to Y of Z results" text */
+.pagination-container nav[role="navigation"] p {
+    display: none;
+}
+
+/* Minimal Tailwind-like utilities for pagination at >=640px */
+@media (min-width: 640px) {
+    .pagination-container .sm\:inline { display: inline !important; }
+    .pagination-container .sm\:block { display: block !important; }
+    .pagination-container .sm\:flex { display: flex !important; }
+    .pagination-container .sm\:flex-1 { flex: 1 1 0% !important; }
+    .pagination-container .sm\:items-center { align-items: center !important; }
+    .pagination-container .sm\:justify-between { justify-content: space-between !important; }
+    /* Hide elements that should be hidden on sm and up */
+    .pagination-container .sm\:hidden { display: none !important; }
+}
+
+/* === FOOTER === */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-top: 3rem;
+}
+
+/*
+ * =========================================
+ * === PRODUCT DETAIL PAGE ===
+ * =========================================
+ */
+
+.product-detail-page {
+    padding: 3rem 0;
+}
+
+.product-detail-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Product Image Styles */
+.product-detail__image-wrapper {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+}
+
+.product-detail__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-detail__no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    color: #aaa;
+    font-size: 1.2rem;
+}
+
+/* Product Info Styles */
+.product-detail__info {
+    padding: 1rem;
+}
+
+.product-detail__name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.product-detail__price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.product-detail__description .description-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.product-detail__description p {
+    color: #555;
+    white-space: pre-line;
+    line-height: 1.7;
+}
+
+/* === Admin Logout Button Style === */
+.logout-btn {
+    background-color: var(
+        --primary-color
+    ); /* Warna merah yang khas untuk logout */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(
+        --border-radius,
+        8px
+    ); /* Menggunakan variabel radius jika ada */
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #2980b9; /* Warna merah yang lebih gelap saat hover */
+    transform: translateY(-1px);
+}
+
+/*
+ * =========================================
+ * === LOGIN PAGE ===
+ * =========================================
+ */
+
+.login-page-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    margin: 0;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 1.5rem;
+}
+
+.login-card {
+    background-color: var(--card-background);
+    padding: 2.5rem 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-logo {
+    width: 80px;
+    margin: 0 auto 1rem;
+}
+
+.login-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.login-subtitle {
+    color: #777;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.15);
+}
+
+/* Button Modifier */
+.btn--block {
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Alert Message */
+.alert {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid transparent;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+/*
+ * =========================================
+ * === ADMIN LAYOUT ===
+ * =========================================
+ */
+
+.admin-body {
+    background-color: #f4f7f6;
+    margin: 0;
+}
+
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 250px;
+    background-color: #2c3e50; /* Warna gelap yang elegan */
+    color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid #34495e;
+}
+
+.sidebar-logo {
+    width: 70px;
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+}
+
+.sidebar-footer {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.sidebar-footer .logout-btn {
+    width: 100%;
+}
+
+/* Main Content */
+.admin-main {
+    flex-grow: 1;
+    margin-left: 250px; /* Sama dengan lebar sidebar */
+    padding: 2.5rem;
+}
+
+/*
+ * =========================================
+ * === ADMIN DASHBOARD ===
+ * =========================================
+ */
+
+.dashboard-header {
+    margin-bottom: 2.5rem;
+}
+
+.dashboard-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+    color: #777;
+    font-size: 1.1rem;
+}
+
+.stat-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-card__title {
+    color: #777;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card__number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.stat-card__icon span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.5rem; /* Ukuran ikon */
+    color: white;
+}
+
+/*
+ * =========================================
+ * === PURE CSS ICONS (No Font Awesome) ===
+ * =========================================
+ */
+
+.stat-card__icon span {
+    position: relative; /* Diperlukan agar pseudo-element bisa diposisikan */
+}
+
+/* --- Icon untuk Produk (Bentuk Kotak) --- */
+.stat-card__icon .icon-box {
+    background-color: var(--secondary-color); /* Biru */
+}
+
+.stat-card__icon .icon-box::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px; /* Lebar kotak */
+    height: 28px; /* Tinggi kotak */
+    border: 3px solid white;
+    border-radius: 4px;
+}
+
+/* --- Icon untuk Kategori (Bentuk Daftar) --- */
+.stat-card__icon .icon-list {
+    background-color: #27ae60; /* Hijau */
+}
+
+.stat-card__icon .icon-list::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 22px;
+    /* Membuat 3 garis horizontal */
+    background: linear-gradient(
+        to bottom,
+        white 0,
+        white 3px,
+        /* Garis 1 */ transparent 3px,
+        transparent 8px,
+        /* Spasi */ white 8px,
+        white 11px,
+        /* Garis 2 */ transparent 11px,
+        transparent 16px,
+        /* Spasi */ white 16px,
+        white 19px /* Garis 3 */
+    );
+}
+
+/*
+ * =========================================
+ * === ADMIN GENERIC INDEX PAGES ===
+ * =========================================
+ */
+
+/* Page Header */
+.admin-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.admin-page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+/* Main content card */
+.admin-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+}
+
+/* Responsive Table */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap; /* Mencegah teks turun baris */
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-table th {
+    font-weight: 600;
+    color: #555;
+    background-color: #f9fafb;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #f4f7f6;
+}
+
+.admin-table .text-center {
+    text-align: center;
+}
+
+.table-image-preview {
+    width: 120px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.no-image-placeholder {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 20px 10px;
+    display: block;
+}
+
+/* Action Buttons in Table */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Badge Styles */
+.badge--success {
+    background-color: #28a745;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.badge--warning {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.btn--secondary {
+    background-color: #3498db;
+    color: white;
+}
+.btn--secondary:hover {
+    background-color: #2980b9;
+}
+
+.btn--danger {
+    background-color: #e74c3c;
+    color: white;
+}
+.btn--danger:hover {
+    background-color: #c0392b;
+}
+
+.btn--small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+}
+
+.btn--warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+.btn--warning:hover {
+    background-color: #e0a800;
+}
+
+.btn--success {
+    background-color: #28a745;
+    color: white;
+}
+.btn--success:hover {
+    background-color: #218838;
+}
+
+/* Success Alert */
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+/*
+ * =========================================
+ * === ADMIN GENERIC FORM PAGES ===
+* =========================================
+ */
+
+.admin-form .form-text {
+    display: block;
+    margin-top: 0.5rem;
+    color: #777;
+    font-size: 0.875rem;
+}
+
+/* Image Preview */
+.image-preview-container {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.image-preview-container .image-preview-text {
+    font-weight: 600;
+    color: #999;
+    margin-bottom: 1rem;
+}
+
+.image-preview-container img {
+    max-width: 100%;
+    max-height: 250px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.image-preview-container img.hidden {
+    display: none;
+}
+
+/* Form Actions */
+.form-actions {
+    margin-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end; /* Tombol di sebelah kanan */
+}
+
+/* Form Grid Layout */
+.form-row {
+    display: flex;
+    gap: 2rem;
+}
+
+.form-col-8 {
+    flex: 8;
+}
+
+.form-col-4 {
+    flex: 4;
+}
+
+/* Image Thumbnail */
+.img-thumbnail {
+    padding: 0.25rem;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Admin Form Specific */
+.admin-form {
+    /* Any form-specific styling if needed */
+}
+
+/* === Media Query for larger screens (Desktop) === */
+@media (min-width: 768px) {
+    .product-detail-container {
+        grid-template-columns: 1fr 1fr; /* Two equal columns */
+        gap: 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-detail-container {
+        grid-template-columns: 2fr 3fr; /* Image smaller than info */
+        gap: 4rem;
+    }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 60px; /* Adjust to header height */
+        flex-direction: column;
+        background-color: var(--card-background);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding: 2rem 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-item {
+        margin: 1.5rem 0;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .hero__slider {
+        height: auto;
+    }
+
+    .hero__image {
+        height: auto;
+    }
+}
+
+/* Strikethrough price styles for discount display */
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9em;
+    margin-right: 8px;
+    display: block;
+}
+
+.discounted-price {
+    color: #e74c3c;
+    font-weight: bold;
+    display: block;
+}
+
+/* Admin panel price styles */
+.original-price-admin {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.85em;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.discounted-price-admin {
+    color: #e74c3c;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.price-container {
+    display: flex;
+    flex-direction: column;
+}
