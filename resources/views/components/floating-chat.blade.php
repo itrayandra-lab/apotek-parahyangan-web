@@ -9,10 +9,17 @@
         x-transition
         class="w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 glass-panel overflow-hidden"
     >
-        <div class="bg-gradient-to-r from-primary to-primary-dark text-white p-4 flex items-center justify-between">
-            <div>
-                <p class="text-[10px] uppercase tracking-[0.2em] font-bold opacity-80">Beauty Bot</p>
-                <h3 class="text-lg font-semibold">Personal Beauty Advisor</h3>
+        <div class="bg-gradient-to-r from-rose-500 to-rose-600 text-white p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-[10px] uppercase tracking-[0.2em] font-bold opacity-80">Online Support</p>
+                    <h3 class="text-sm font-bold">Konsultasi Apoteker</h3>
+                </div>
             </div>
             <button
                 type="button"
@@ -27,7 +34,7 @@
 
         <div class="p-4 bg-gray-50">
             <template x-if="statusMessage">
-                <div class="mb-3 px-3 py-2 rounded-xl text-xs font-medium"
+                <div class="mb-3 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest"
                     :class="statusMessage.type === 'error'
                         ? 'bg-rose-50 text-rose-700 border border-rose-100'
                         : 'bg-emerald-50 text-emerald-700 border border-emerald-100'">
@@ -35,34 +42,71 @@
                 </div>
             </template>
 
-            <div class="h-72 overflow-y-auto space-y-3 pr-1" x-ref="messages">
+            <div class="h-80 overflow-y-auto space-y-4 pr-1 scroll-smooth" x-ref="messages">
                 <template x-if="messages.length === 0">
-                    <p class="text-xs text-gray-500 text-center mt-8">
-                        Mulai percakapan untuk rekomendasi skincare dan makeup terbaik.
-                    </p>
+                    <div class="text-center mt-10 space-y-4">
+                        <div class="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto">
+                            <svg class="w-8 h-8 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8-.904 0-1.776-.117-2.588-.336L3 20l1.316-3.947C3.481 14.992 3 13.553 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                        </div>
+                        <p class="text-xs text-gray-400 px-8">
+                            Halo! Tanyakan keluhan kesehatan atau informasi obat kepada Apoteker kami secara langsung.
+                        </p>
+                    </div>
                 </template>
 
                 <template x-for="message in messages" :key="message.id ?? message.tempId">
-                    <div class="flex" :class="message.type === 'user' ? 'justify-end' : 'justify-start'">
+                    <div class="flex flex-col" :class="message.type === 'user' ? 'items-end' : 'items-start'">
+                        {{-- Name Label --}}
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-1 px-2" 
+                              x-text="message.type === 'user' ? 'Anda' : (message.type === 'bot' ? 'Beauty Bot' : 'Apoteker')"></span>
+                        
+                        {{-- Message Bubble --}}
                         <div
-                            class="max-w-[85%] px-3 py-2 rounded-2xl text-sm shadow-sm border"
+                            class="max-w-[85%] px-4 py-3 rounded-2xl text-sm shadow-sm"
                             :class="message.type === 'user'
-                                ? 'bg-primary text-white border-primary-dark'
-                                : 'bg-white text-gray-900 border-gray-100'"
+                                ? 'bg-gray-900 text-white rounded-tr-none'
+                                : (message.type === 'product' ? 'bg-transparent shadow-none p-0 w-full' : 'bg-white text-gray-900 border border-gray-100 rounded-tl-none')"
                         >
-                            <div class="whitespace-pre-wrap break-words" x-html="formatMessage(message.content, message.type)"></div>
-                            <p class="text-[10px] uppercase tracking-wide mt-1 text-white/80" x-show="message.type === 'user'">You</p>
+                            {{-- Text Content --}}
+                            <template x-if="message.type !== 'product'">
+                                <div class="whitespace-pre-wrap break-words leading-relaxed" x-html="formatMessage(message.content, message.type)"></div>
+                            </template>
+
+                            {{-- Product Injection --}}
+                            <template x-if="message.type === 'product' && message.product">
+                                <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                                    <div class="relative aspect-video bg-gray-50 flex items-center justify-center overflow-hidden">
+                                        <template x-if="message.product.image_url">
+                                            <img :src="message.product.image_url" class="w-full h-full object-cover">
+                                        </template>
+                                        <template x-if="!message.product.image_url">
+                                            <svg class="w-8 h-8 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        </template>
+                                        <div class="absolute top-2 right-2">
+                                            <span class="bg-rose-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-full uppercase">Rekomendasi</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-3">
+                                        <h4 class="text-xs font-bold text-gray-900 line-clamp-1 mb-1" x-text="message.product.name"></h4>
+                                        <p class="text-rose-500 font-bold text-xs mb-3" x-text="message.product.formatted_price"></p>
+                                        <a :href="'/shop/' + message.product.slug" 
+                                           class="block w-full text-center bg-gray-900 text-white py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-rose-500 transition-colors">
+                                           Beli Sekarang
+                                        </a>
+                                    </div>
+                                </div>
+                            </template>
                         </div>
                     </div>
                 </template>
 
                 <template x-if="isTyping">
                     <div class="flex justify-start">
-                        <div class="bg-white text-gray-900 border border-gray-100 px-4 py-3 rounded-2xl shadow-sm">
+                        <div class="bg-white border border-gray-100 px-4 py-3 rounded-2xl shadow-sm rounded-tl-none">
                             <div class="flex items-center gap-1">
-                                <span class="w-2 h-2 bg-primary rounded-full animate-bounce" style="animation-delay: 0ms;"></span>
-                                <span class="w-2 h-2 bg-primary rounded-full animate-bounce" style="animation-delay: 150ms;"></span>
-                                <span class="w-2 h-2 bg-primary rounded-full animate-bounce" style="animation-delay: 300ms;"></span>
+                                <span class="w-1.5 h-1.5 bg-rose-400 rounded-full animate-bounce" style="animation-delay: 0ms;"></span>
+                                <span class="w-1.5 h-1.5 bg-rose-400 rounded-full animate-bounce" style="animation-delay: 150ms;"></span>
+                                <span class="w-1.5 h-1.5 bg-rose-400 rounded-full animate-bounce" style="animation-delay: 300ms;"></span>
                             </div>
                         </div>
                     </div>
@@ -70,39 +114,46 @@
             </div>
         </div>
 
-        <form class="border-t border-gray-100 p-4 bg-white space-y-2" @submit.prevent="sendMessage()">
-            <div class="flex items-center gap-2">
+        <form class="border-t border-gray-100 p-4 bg-white" @submit.prevent="sendMessage()">
+            <div class="relative">
                 <input
                     type="text"
                     x-model="form.message"
-                    class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-primary"
-                    placeholder="Tanya Beauty Bot..."
+                    class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:bg-white transition-all pr-12"
+                    placeholder="Ketik pesan..."
                     :disabled="sending"
                 >
                 <button
                     type="submit"
-                    class="bg-gray-900 text-white px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-primary transition disabled:opacity-50"
+                    class="absolute right-2 top-1.5 bg-gray-900 text-white p-2 rounded-xl hover:bg-rose-500 transition-colors disabled:opacity-50"
                     :disabled="sending || form.message.trim() === ''"
                 >
-                    <span x-show="!sending">Kirim</span>
-                    <span x-show="sending">...</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9-2-9-18-9 18 9 2zm0 0v-8"></path>
+                    </svg>
                 </button>
             </div>
-            <div class="flex justify-between text-[10px] uppercase tracking-[0.16em] text-gray-400">
-                <button type="button" class="hover:text-primary" @click="resetChat()" :disabled="sending">Reset</button>
+            <div class="flex justify-between mt-3 px-1">
+                <div class="flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 rounded-full" :class="isTabFocused ? 'bg-emerald-500 animate-pulse' : 'bg-gray-300'"></div>
+                    <span class="text-[8px] font-bold uppercase tracking-[0.1em] text-gray-400" x-text="isTabFocused ? 'Terhubung' : 'Idle'"></span>
+                </div>
+                <button type="button" class="text-[8px] font-bold uppercase tracking-[0.1em] text-gray-300 hover:text-rose-500 transition-colors" @click="resetChat()" :disabled="sending">Mulai Ulang Chat</button>
             </div>
         </form>
     </div>
 
     <button
         type="button"
-        class="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-dark shadow-xl shadow-rose-200 text-white flex items-center justify-center hover:scale-105 transition-transform"
+        class="w-16 h-16 rounded-3xl bg-gray-900 shadow-2xl shadow-gray-200 text-white flex items-center justify-center hover:scale-105 hover:bg-rose-600 transition-all duration-300 group relative"
         @click="toggle()"
         x-show="!isOpen"
-        style="display: none;"
     >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8-.904 0-1.776-.117-2.588-.336L3 20l1.316-3.947C3.481 14.992 3 13.553 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+        <div class="absolute -top-1 -right-1 w-5 h-5 bg-rose-500 border-2 border-white rounded-full flex items-center justify-center animate-bounce shadow-sm">
+            <span class="text-[10px] font-bold">!</span>
+        </div>
+        <svg class="w-7 h-7 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8-.904 0-1.776-.117-2.588-.336L3 20l1.316-3.947C3.481 14.992 3 13.553 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
         </svg>
     </button>
 </div>
@@ -116,18 +167,52 @@
             statusMessage: null,
             sessionId: null,
             messages: [],
+            lastId: 0,
+            pollTimeout: null,
+            isTabFocused: true,
+            idleTimer: 0,
+            pollInterval: 3000,
             form: {
                 message: '',
             },
-            storageKey: 'chatbot_session_id',
+            storageKey: 'consultation_session_id',
             async init() {
                 this.restoreSession();
                 await this.checkStatus();
+                
+                // Track focus
+                window.addEventListener('focus', () => { 
+                    this.isTabFocused = true; 
+                    this.pollInterval = 3000;
+                    this.resetIdle();
+                });
+                window.addEventListener('blur', () => { 
+                    this.isTabFocused = false; 
+                    this.pollInterval = 10000; // Slow down when inactive
+                });
+
+                // Idle management
+                setInterval(() => {
+                    this.idleTimer += 1000;
+                    if (this.idleTimer > 300000) { // 5 minutes
+                        this.pollInterval = 30000; // Very slow
+                    }
+                }, 1000);
+
+                // Start polling if session exists
+                if (this.sessionId) {
+                    this.startPolling();
+                }
+            },
+            resetIdle() {
+                this.idleTimer = 0;
+                if (this.isTabFocused) this.pollInterval = 3000;
             },
             toggle() {
                 this.isOpen = !this.isOpen;
                 if (this.isOpen) {
                     this.ensureSession();
+                    this.resetIdle();
                 }
             },
             close() {
@@ -138,10 +223,10 @@
                     const response = await axios.get('/api/chatbot/status');
                     const active = response.data?.active;
                     this.statusMessage = active
-                        ? { type: 'info', text: 'Beauty Bot is online.' }
-                        : { type: 'error', text: 'Beauty Bot sedang offline.' };
+                        ? { type: 'info', text: 'Apoteker online & siap membantu.' }
+                        : { type: 'error', text: 'Layanan konsultasi sedang sibuk.' };
                 } catch (error) {
-                    this.statusMessage = { type: 'error', text: 'Tidak dapat memeriksa status chatbot.' };
+                    this.statusMessage = { type: 'error', text: 'Tidak dapat terhubung ke server.' };
                 }
             },
             restoreSession() {
@@ -163,66 +248,108 @@
                     this.sessionId = response.data?.session_id;
                     if (this.sessionId) {
                         window.sessionStorage.setItem(this.storageKey, this.sessionId);
+                        this.startPolling();
                     }
                     await this.loadHistory();
                 } catch (error) {
-                    this.statusMessage = { type: 'error', text: 'Gagal membuat sesi chatbot.' };
+                    this.statusMessage = { type: 'error', text: 'Gagal membuat sesi konsultasi.' };
                 }
             },
             async loadHistory() {
-                if (!this.sessionId) {
-                    return;
-                }
+                if (!this.sessionId) return;
                 try {
                     const response = await axios.get('/api/chatbot/history', {
                         params: { session_id: this.sessionId, limit: 50 },
                     });
                     this.messages = response.data?.messages ?? [];
+                    if (this.messages.length > 0) {
+                        this.lastId = Math.max(...this.messages.map(m => m.id || 0));
+                    }
                     this.$nextTick(() => this.scrollToBottom());
-                } catch (error) {
-                    // ignore silently; user can still send
+                } catch (error) {}
+            },
+            async startPolling() {
+                if (this.pollTimeout) clearTimeout(this.pollTimeout);
+                
+                const poll = async () => {
+                    if (this.sessionId) {
+                        try {
+                            const response = await axios.get('/api/chat/sync', {
+                                params: { session_id: this.sessionId, last_id: this.lastId }
+                            });
+                            
+                            if (response.data.new_messages && response.data.new_messages.length > 0) {
+                                // Filter out messages already in the list (e.g. from user's own send)
+                                const currentIds = this.messages.map(m => m.id);
+                                const trulyNew = response.data.new_messages.filter(m => !currentIds.includes(m.id));
+                                
+                                if (trulyNew.length > 0) {
+                                    this.messages.push(...trulyNew);
+                                    this.lastId = response.data.last_id;
+                                    this.$nextTick(() => this.scrollToBottom());
+                                    
+                                    // Browser Notification if blurred
+                                    if (!this.isTabFocused || !this.isOpen) {
+                                        this.notifyNewMessage();
+                                    }
+                                }
+                            }
+                        } catch (e) {}
+                    }
+                    this.pollTimeout = setTimeout(poll, this.pollInterval);
+                };
+                
+                this.pollTimeout = setTimeout(poll, this.pollInterval);
+            },
+            notifyNewMessage() {
+                if ("Notification" in window && Notification.permission === "granted") {
+                    new Notification("Apotek Parahyangan", {
+                        body: "Anda menerima pesan konsultasi baru.",
+                        icon: "/favicon.ico"
+                    });
+                } else if ("Notification" in window && Notification.permission !== "denied") {
+                    Notification.requestPermission();
                 }
             },
             async sendMessage() {
                 const text = this.form.message.trim();
-                if (!text || this.sending) {
-                    return;
-                }
+                if (!text || this.sending) return;
 
                 if (!this.sessionId) {
                     await this.createSession();
                     if (!this.sessionId) return;
                 }
 
+                this.resetIdle();
                 const tempId = `temp-${Date.now()}`;
-                this.messages.push({ tempId, type: 'user', content: text, sent_at: new Date().toISOString() });
+                this.messages.push({ id: null, tempId, type: 'user', content: text, sent_at: new Date().toISOString() });
                 this.form.message = '';
                 this.sending = true;
-                this.isTyping = true;
                 this.$nextTick(() => this.scrollToBottom());
 
                 try {
-                    const response = await axios.post('/api/chatbot/send', {
+                    const response = await axios.post('/api/chat/send', {
                         session_id: this.sessionId,
                         message: text,
                     });
-
-                    const botMessages = response.data?.messages ?? [];
-                    // Replace temp with persisted user message if returned
-                    this.messages = this.messages.filter((msg) => msg.tempId !== tempId);
-                    this.messages.push(...botMessages);
+                    
+                    const sentMsg = response.data?.message;
+                    // Find and update temp message
+                    const idx = this.messages.findIndex(m => m.tempId === tempId);
+                    if (idx !== -1 && sentMsg) {
+                        this.messages[idx].id = sentMsg.id;
+                        this.lastId = Math.max(this.lastId, sentMsg.id);
+                    }
                 } catch (error) {
-                    this.statusMessage = { type: 'error', text: error?.response?.data?.message ?? 'Gagal mengirim pesan.' };
+                    this.statusMessage = { type: 'error', text: 'Gagal mengirim pesan.' };
                 } finally {
                     this.sending = false;
-                    this.isTyping = false;
                     this.$nextTick(() => this.scrollToBottom());
                 }
             },
             async resetChat() {
-                if (!this.sessionId || this.sending) {
-                    return;
-                }
+                if (!this.sessionId || this.sending) return;
+                if (!confirm('Hapus riwayat chat dan mulai percakapan baru?')) return;
 
                 try {
                     const response = await axios.post('/api/chatbot/reset', {
@@ -230,36 +357,30 @@
                     });
                     this.sessionId = response.data?.session_id;
                     this.messages = [];
+                    this.lastId = 0;
                     window.sessionStorage.setItem(this.storageKey, this.sessionId);
-                    this.statusMessage = { type: 'info', text: 'Percakapan direset.' };
+                    this.statusMessage = { type: 'info', text: 'Percakapan baru dimulai.' };
                 } catch (error) {
-                    this.statusMessage = { type: 'error', text: 'Gagal mereset percakapan.' };
+                    this.statusMessage = { type: 'error', text: 'Gagal mereset chat.' };
                 }
             },
             scrollToBottom() {
                 if (this.$refs.messages) {
-                    this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight;
+                    this.$refs.messages.scrollTo({
+                        top: this.$refs.messages.scrollHeight,
+                        behavior: 'smooth'
+                    });
                 }
-            },
-            onScrollBottom() {
-                // reserved for future lazy loading
             },
             formatMessage(content, type) {
                 if (!content) return '';
-
-                // Escape HTML to prevent XSS
                 const escapeHtml = (text) => {
                     const div = document.createElement('div');
                     div.textContent = text;
                     return div.innerHTML;
                 };
-
-                // Escape the content first
                 let formatted = escapeHtml(content);
-
-                // Convert \n to <br> for line breaks
                 formatted = formatted.replace(/\n/g, '<br>');
-
                 return formatted;
             },
         };

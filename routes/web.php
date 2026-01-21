@@ -169,6 +169,13 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     });
 });
 
+// Consultation Chat routes
+Route::prefix('api/chat')
+    ->group(function (): void {
+        Route::get('/sync', [App\Http\Controllers\Api\ChatController::class, 'sync'])->name('chat.sync');
+        Route::post('/send', [App\Http\Controllers\Api\ChatController::class, 'send'])->name('chat.send');
+    });
+
 // Chatbot routes (API-style under web stack)
 Route::prefix('api/chatbot')
     ->middleware(['chatbot.access', 'throttle:30,1'])
