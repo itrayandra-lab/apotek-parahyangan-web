@@ -25,6 +25,12 @@
                                     <p class="text-lg font-display font-medium text-gray-900">Rp {{ number_format($order->total, 0, ',', '.') }}</p>
                                 </div>
                                 <div class="flex items-center gap-3">
+                                    @if($order->payment_status === 'unpaid' && $order->payment_gateway === 'midtrans')
+                                        <a href="{{ route('checkout.payment', $order) }}" class="px-4 py-2 bg-primary text-white text-xs font-bold rounded-full hover:bg-primary-dark transition-colors shadow-sm">
+                                            Bayar Sekarang
+                                        </a>
+                                    @endif
+
                                     <span class="px-3 py-1 rounded-full text-xs font-semibold
                                         @if($order->payment_status === 'paid') bg-emerald-100 text-emerald-700
                                         @elseif($order->payment_status === 'unpaid') bg-yellow-100 text-yellow-700

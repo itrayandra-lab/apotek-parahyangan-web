@@ -98,6 +98,7 @@
                     <tr class="border-b border-gray-100 bg-white/30 backdrop-blur-sm">
                         <th class="px-8 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-widest font-display">User</th>
                         <th class="px-6 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Email</th>
+                        <th class="px-6 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-widest font-display">WhatsApp</th>
                         <th class="px-6 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Role</th>
                         <th class="px-6 py-6 text-left text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Joined</th>
                         <th class="px-8 py-6 text-right text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Actions</th>
@@ -120,6 +121,10 @@
 
                             <td class="px-6 py-6">
                                 <span class="text-sm text-gray-600">{{ $user->email }}</span>
+                            </td>
+
+                            <td class="px-6 py-6">
+                                <span class="text-sm text-gray-600">{{ $user->whatsapp }}</span>
                             </td>
 
                             <td class="px-6 py-6">

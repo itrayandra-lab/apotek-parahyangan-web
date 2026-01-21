@@ -65,6 +65,16 @@
                     </div>
 
                     <div>
+                        <label for="whatsapp" class="block text-sm font-bold text-gray-700 uppercase tracking-widest">WhatsApp Number</label>
+                        <div class="mt-2 text-sm text-gray-500 mb-1">Contoh: 08123456789</div>
+                        <div class="mt-1">
+                            <input id="whatsapp" name="whatsapp" type="text" autocomplete="tel" required 
+                                class="block w-full rounded-xl border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm py-3 px-4 bg-white/50"
+                                value="{{ old('whatsapp') }}" placeholder="08...">
+                        </div>
+                    </div>
+
+                    <div>
                         <label for="password" class="block text-sm font-bold text-gray-700 uppercase tracking-widest">Password</label>
                         <div class="mt-2">
                             <input id="password" name="password" type="password" autocomplete="new-password" required 

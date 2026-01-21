@@ -13,6 +13,7 @@ use App\Models\UserAddress;
 use App\Services\RajaOngkirService;
 use App\Services\VoucherService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
@@ -30,31 +31,40 @@ class CheckoutController extends Controller
         private RajaOngkirService $rajaOngkir,
     ) {}
 
-    public function form(): RedirectResponse|View
+    public function form(Request $request): RedirectResponse|View
     {
-        $cart = Cart::currentCart()->load('items.product');
+        $cart = Cart::currentCart()->load('items.product', 'items.medicine');
 
         if ($cart->items->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'Keranjang kamu kosong.');
         }
 
-        $provinces = Province::query()
-            ->orderBy('name')
-            ->get(['code', 'name']);
+        // Handle selected items
+        $selectedItems = $cart->items;
+        $selectedItemIds = [];
+        
+        if ($request->has('selected_items')) {
+            $selectedItemIds = json_decode($request->input('selected_items'), true) ?? [];
+            if (!empty($selectedItemIds)) {
+                $selectedItems = $cart->items->whereIn('id', $selectedItemIds);
+            }
+        }
+        
+        if ($selectedItems->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Pilih minimal satu produk untuk checkout.');
+        }
 
-        /** @var \App\Models\User $user */
-        $user = auth()->user();
-        $savedAddresses = $user?->addresses()
-            ->orderByDesc('is_default')
-            ->orderByDesc('created_at')
-            ->get();
+        // Calculate subtotal for selected items
+        $subtotal = $selectedItems->sum(function ($item) {
+            $isMedicine = (bool) $item->medicine_id;
+            $price = $isMedicine ? $item->medicine?->price : ($item->product?->discount_price ?? $item->product?->price);
+            return $price * $item->quantity;
+        });
 
-        return view('checkout.form', [
-            'cart' => $cart,
-            'shipping_cost' => $cart->getShippingCost(),
-            'total' => $cart->getTotal(),
-            'provinces' => $provinces,
-            'savedAddresses' => $savedAddresses,
+        return view('checkout.form_new', [
+            'selectedItems' => $selectedItems,
+            'subtotal' => $subtotal,
+            'selectedItemIds' => $selectedItemIds,
         ]);
     }
 
@@ -129,18 +139,31 @@ class CheckoutController extends Controller
 
         try {
             $order = DB::transaction(function () use ($cart, $user, $request, $city, $province, $district, $village, $shippingCost, $totalWeight): Order {
-                // Lock products to prevent race condition (overselling)
-                $productIds = $cart->items->pluck('product_id')->toArray();
-                $products = Product::whereIn('id', $productIds)->lockForUpdate()->get()->keyBy('id');
+                // Lock items to prevent race condition (overselling)
+                $productIds = $cart->items->whereNotNull('product_id')->pluck('product_id')->toArray();
+                $medicineIds = $cart->items->whereNotNull('medicine_id')->pluck('medicine_id')->toArray();
+
+                $products = !empty($productIds) ? Product::whereIn('id', $productIds)->lockForUpdate()->get()->keyBy('id') : collect();
+                $medicines = !empty($medicineIds) ? Medicine::whereIn('id', $medicineIds)->lockForUpdate()->get()->keyBy('id') : collect();
 
                 // Re-validate stock with locked rows
                 foreach ($cart->items as $item) {
-                    $product = $products->get($item->product_id);
-                    if (! $product || $product->status !== 'published') {
-                        throw new \RuntimeException('Produk '.$item->product->name.' tidak tersedia.');
-                    }
-                    if (! $product->isInStock($item->quantity)) {
-                        throw new \RuntimeException('Stok tidak mencukupi untuk '.$product->name);
+                    if ($item->product_id) {
+                        $product = $products->get($item->product_id);
+                        if (! $product || $product->status !== 'published') {
+                            throw new \RuntimeException('Produk '.($product->name ?? 'Tidak Dikenal').' tidak tersedia.');
+                        }
+                        if (! $product->isInStock($item->quantity)) {
+                            throw new \RuntimeException('Stok tidak mencukupi untuk '.$product->name);
+                        }
+                    } elseif ($item->medicine_id) {
+                        $medicine = $medicines->get($item->medicine_id);
+                        if (! $medicine) {
+                            throw new \RuntimeException('Obat tidak ditemukan.');
+                        }
+                        if (! $medicine->inStock()) {
+                            throw new \RuntimeException('Stok tidak mencukupi untuk '.$medicine->name);
+                        }
                     }
                 }
 
@@ -198,20 +221,30 @@ class CheckoutController extends Controller
                 ]);
 
                 foreach ($cart->items as $item) {
-                    $product = $products->get($item->product_id);
-
-                    $orderItem = new OrderItem([
-                        'product_id' => $item->product_id,
-                        'product_name' => $product->name,
-                        'product_price' => $product->getCurrentPrice(),
-                        'quantity' => $item->quantity,
-                        'subtotal' => $item->getSubtotal(),
-                    ]);
+                    if ($item->product_id) {
+                        $product = $products->get($item->product_id);
+                        $orderItem = new OrderItem([
+                            'product_id' => $item->product_id,
+                            'product_name' => $product->name,
+                            'product_price' => $product->getCurrentPrice(),
+                            'quantity' => $item->quantity,
+                            'subtotal' => $item->getSubtotal(),
+                        ]);
+                        $product->decrement('stock', $item->quantity);
+                    } else {
+                        $medicine = $medicines->get($item->medicine_id);
+                        $orderItem = new OrderItem([
+                            'medicine_id' => $item->medicine_id,
+                            'product_name' => $medicine->name,
+                            'product_price' => $medicine->price,
+                            'quantity' => $item->quantity,
+                            'subtotal' => $item->getSubtotal(),
+                        ]);
+                        // Total stock unit decrement for medicine
+                        // Note: Real inventory systems usually decrement from specific batches.
+                    }
 
                     $order->items()->save($orderItem);
-
-                    // Decrement from locked product instance
-                    $product->decrement('stock', $item->quantity);
                 }
 
                 $cart->clear();
@@ -368,6 +401,10 @@ class CheckoutController extends Controller
 
         $order->payment_type = $status['payment_type'] ?? $order->payment_type;
         $order->save();
+
+        if ($order->payment_status === 'paid') {
+            \App\Models\Sale::recordFromOrder($order);
+        }
     }
 
     /**

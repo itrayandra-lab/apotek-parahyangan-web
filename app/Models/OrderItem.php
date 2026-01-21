@@ -18,6 +18,7 @@ class OrderItem extends Model
     protected $fillable = [
         'order_id',
         'product_id',
+        'medicine_id',
         'product_name',
         'product_price',
         'quantity',
@@ -44,5 +45,10 @@ class OrderItem extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class)->withTrashed();
+    }
+
+    public function medicine(): BelongsTo
+    {
+        return $this->belongsTo(Medicine::class)->withTrashed();
     }
 }

@@ -90,6 +90,17 @@
                                placeholder="john@example.com"
                                required>
                     </div>
+
+                    <div>
+                        <label for="whatsapp" class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">WhatsApp Number *</label>
+                        <input type="text"
+                               name="whatsapp"
+                               id="whatsapp"
+                               value="{{ old('whatsapp', $user->whatsapp ?? '') }}"
+                               class="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-rose-300 focus:ring-2 focus:ring-rose-100 transition-all text-gray-700"
+                               placeholder="08..."
+                               required>
+                    </div>
                 </div>
             </div>
 

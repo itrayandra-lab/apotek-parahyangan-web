@@ -20,6 +20,7 @@ class Order extends Model
      */
     protected $fillable = [
         'order_number',
+        'invoice_number',
         'user_id',
         'status',
         'subtotal',
@@ -49,6 +50,8 @@ class Order extends Model
         'shipping_postal_code',
         'phone',
         'notes',
+        'metadata',
+        'notes',
         'province_code',
         'city_code',
         'district_code',
@@ -71,6 +74,7 @@ class Order extends Model
             'cancelled_at' => 'datetime',
             'payment_expired_at' => 'datetime',
             'payment_callback_data' => 'array',
+            'metadata' => 'array',
         ];
     }
 
@@ -158,7 +162,7 @@ class Order extends Model
 
         $sequence = $lastOrder ? ((int) substr($lastOrder->order_number, -4)) + 1 : 1;
 
-        return sprintf('ORD-%s-%04d', $date, $sequence);
+        return sprintf('INV/%s/%04d', $date, $sequence);
     }
 
     public function markAsPaid(?CarbonInterface $paidAt = null): void
@@ -166,6 +170,8 @@ class Order extends Model
         $this->payment_status = 'paid';
         $this->paid_at = $paidAt ?? now();
         $this->save();
+
+        \App\Models\Sale::recordFromOrder($this);
     }
 
     public function markAsShipped(?CarbonInterface $shippedAt = null): void
@@ -256,6 +262,9 @@ class Order extends Model
         $this->payment_status = 'paid';
         $this->paid_at = now();
         $this->status = $this->status === 'pending_payment' ? 'confirmed' : $this->status;
+        $this->save(); // Ensure saved before recording
+
+        \App\Models\Sale::recordFromOrder($this);
     }
 
     public function expireIfDue(): bool

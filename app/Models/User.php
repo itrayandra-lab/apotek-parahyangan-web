@@ -25,6 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'whatsapp',
     ];
 
     /**
@@ -63,6 +64,16 @@ class User extends Authenticatable
     public function addresses(): HasMany
     {
         return $this->hasMany(UserAddress::class);
+    }
+
+    public function prescriptions(): HasMany
+    {
+        return $this->hasMany(Prescription::class)->latest();
+    }
+
+    public function prescriptionOrders(): HasMany
+    {
+        return $this->hasMany(PrescriptionOrder::class)->latest();
     }
 
     public function defaultAddress(): ?UserAddress

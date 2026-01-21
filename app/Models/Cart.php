@@ -84,6 +84,23 @@ class Cart extends Model
         return $cartItem;
     }
 
+    public function addMedicine(Medicine $medicine, int $quantity = 1): CartItem
+    {
+        $cartItem = $this->items()->where('medicine_id', $medicine->id)->first();
+
+        if ($cartItem) {
+            $cartItem->quantity += $quantity;
+            $cartItem->save();
+        } else {
+            $cartItem = $this->items()->create([
+                'medicine_id' => $medicine->id,
+                'quantity' => $quantity,
+            ]);
+        }
+
+        return $cartItem;
+    }
+
     public function removeProduct(Product $product): bool
     {
         return (bool) $this->items()->where('product_id', $product->id)->delete();

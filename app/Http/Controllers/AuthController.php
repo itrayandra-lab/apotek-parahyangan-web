@@ -41,16 +41,17 @@ class AuthController extends Controller
 
         $guestSessionId = $request->session()->getId();
 
-        // Find user by email or username
+        // Find user by email, username, or whatsapp
         $user = User::where('email', $credentials['email_or_username'])
             ->orWhere('username', $credentials['email_or_username'])
+            ->orWhere('whatsapp', $credentials['email_or_username'])
             ->first();
 
         // Validate user exists and password matches
         if (! $user || ! Hash::check($credentials['password'], $user->password)) {
             return back()
                 ->withInput($request->only('email_or_username'))
-                ->withErrors(['email_or_username' => 'Invalid credentials provided.']);
+                ->withErrors(['email_or_username' => 'Identitas atau password salah. Silakan coba kembali.']);
         }
 
         // Determine guard and redirect based on role
@@ -110,6 +111,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username',
             'email' => 'required|string|email|max:255|unique:users,email',
+            'whatsapp' => 'required|string|max:20',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -119,6 +121,7 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'username' => $validated['username'],
             'email' => $validated['email'],
+            'whatsapp' => $validated['whatsapp'],
             'password' => $validated['password'], // Auto-hashed via cast
             'role' => 'user', // Default role for customers
         ]);

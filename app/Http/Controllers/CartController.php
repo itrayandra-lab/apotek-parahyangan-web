@@ -19,7 +19,7 @@ class CartController extends Controller
      */
     public function index(): View
     {
-        $cart = $this->getCart()->load('items.product');
+        $cart = $this->getCart()->load(['items.product', 'items.medicine']);
 
         return view('cart.index', [
             'cart' => $cart,
@@ -44,31 +44,29 @@ class CartController extends Controller
     public function add(AddToCartRequest $request): JsonResponse
     {
         $cart = $this->getCart();
-        $product = Product::with('media')->findOrFail($request->integer('product_id'));
         $quantity = $request->integer('quantity', 1);
 
-        if ($product->status !== 'published') {
-            return response()->json([
-                'message' => 'Produk tidak tersedia.',
-            ], 422);
+        if ($request->has('medicine_id')) {
+            $medicine = \App\Models\Medicine::findOrFail($request->integer('medicine_id'));
+            
+            if (! $medicine->inStock()) {
+                return response()->json(['message' => 'Stok obat tidak mencukupi.'], 422);
+            }
+
+            $cart->addMedicine($medicine, $quantity);
+        } else {
+            $product = Product::findOrFail($request->integer('product_id'));
+
+            if ($product->status !== 'published') {
+                return response()->json(['message' => 'Produk tidak tersedia.'], 422);
+            }
+
+            if (! $product->isInStock($quantity)) {
+                return response()->json(['message' => 'Stok produk tidak mencukupi.'], 422);
+            }
+
+            $cart->addProduct($product, $quantity);
         }
-
-        if (! $product->isInStock($quantity)) {
-            return response()->json([
-                'message' => 'Stok produk tidak mencukupi.',
-            ], 422);
-        }
-
-        $cartItem = $cart->items()->where('product_id', $product->id)->first();
-        $newQuantity = $cartItem ? $cartItem->quantity + $quantity : $quantity;
-
-        if (! $product->isInStock($newQuantity)) {
-            return response()->json([
-                'message' => 'Jumlah melebihi stok tersedia.',
-            ], 422);
-        }
-
-        $cart->addProduct($product, $quantity);
 
         return response()->json([
             'message' => 'Produk berhasil ditambahkan ke keranjang.',
@@ -89,14 +87,28 @@ class CartController extends Controller
         }
 
         $quantity = $request->integer('quantity');
-        $product = $item->product()->first();
 
-        if (! $product || $product->status !== 'published') {
-            return $this->respondError($request, 'Produk tidak tersedia.', 422);
-        }
+        if ($item->medicine_id) {
+            $medicine = $item->medicine;
+            if (! $medicine) {
+                return $this->respondError($request, 'Obat tidak ditemukan.', 422);
+            }
+            // Check medicine stock
+            if (method_exists($medicine, 'isInStock') && ! $medicine->isInStock($quantity)) {
+                return $this->respondError($request, 'Stok obat tidak mencukupi.', 422);
+            } elseif (!method_exists($medicine, 'isInStock') && $medicine->total_stock_unit < $quantity) {
+                 return $this->respondError($request, 'Stok obat tidak mencukupi.', 422);
+            }
+        } else {
+            $product = $item->product()->first();
 
-        if (! $product->isInStock($quantity)) {
-            return $this->respondError($request, 'Stok produk tidak mencukupi.', 422);
+            if (! $product || $product->status !== 'published') {
+                return $this->respondError($request, 'Produk tidak tersedia.', 422);
+            }
+
+            if (! $product->isInStock($quantity)) {
+                return $this->respondError($request, 'Stok produk tidak mencukupi.', 422);
+            }
         }
 
         $item->setQuantity($quantity);
@@ -105,7 +117,7 @@ class CartController extends Controller
             return response()->json([
                 'message' => 'Kuantitas diperbarui.',
                 'count' => $cart->getItemsCount(),
-                'totals' => $this->cartTotals($cart->fresh('items.product')),
+                'totals' => $this->cartTotals($cart->fresh(['items.product', 'items.medicine'])),
             ]);
         }
 
@@ -129,7 +141,7 @@ class CartController extends Controller
             return response()->json([
                 'message' => 'Item dihapus.',
                 'count' => $cart->getItemsCount(),
-                'totals' => $this->cartTotals($cart->fresh('items.product')),
+                'totals' => $this->cartTotals($cart->fresh(['items.product', 'items.medicine'])),
             ]);
         }
 

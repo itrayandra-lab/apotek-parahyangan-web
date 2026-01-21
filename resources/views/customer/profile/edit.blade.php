@@ -26,6 +26,32 @@
             @method('PUT')
 
             <div>
+                <label for="name" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Nama Lengkap</label>
+                <input type="text"
+                       name="name"
+                       id="name"
+                       value="{{ old('name', $user->name) }}"
+                       class="w-full rounded-xl border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
+                       required>
+                @error('name')
+                    <p class="text-rose-600 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="email" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Email</label>
+                <input type="email"
+                       name="email"
+                       id="email"
+                       value="{{ old('email', $user->email) }}"
+                       class="w-full rounded-xl border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
+                       required>
+                @error('email')
+                    <p class="text-rose-600 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
                 <label for="username" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Username</label>
                 <input type="text"
                        name="username"
@@ -34,6 +60,19 @@
                        class="w-full rounded-xl border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
                        required>
                 @error('username')
+                    <p class="text-rose-600 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="whatsapp" class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">WhatsApp</label>
+                <input type="text"
+                       name="whatsapp"
+                       id="whatsapp"
+                       value="{{ old('whatsapp', $user->whatsapp) }}"
+                       class="w-full rounded-xl border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
+                       required>
+                @error('whatsapp')
                     <p class="text-rose-600 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>

@@ -18,6 +18,7 @@ class CartItem extends Model
     protected $fillable = [
         'cart_id',
         'product_id',
+        'medicine_id',
         'quantity',
     ];
 
@@ -41,6 +42,11 @@ class CartItem extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function medicine(): BelongsTo
+    {
+        return $this->belongsTo(Medicine::class);
+    }
+
     public function getSubtotal(): int
     {
         return $this->getPrice() * $this->quantity;
@@ -48,6 +54,9 @@ class CartItem extends Model
 
     public function getPrice(): int
     {
+        if ($this->medicine_id) {
+            return $this->medicine->price;
+        }
         return $this->product->discount_price ?? $this->product->price;
     }
 

@@ -85,6 +85,16 @@
                     Orders
                 </a>
 
+                <a href="{{ route('admin.prescriptions.index') }}"
+                    class="group flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-300 {{ request()->routeIs('admin.prescriptions.*') ? 'bg-gradient-to-r from-rose-500/10 to-transparent text-rose-400 border-l-2 border-rose-500' : 'text-gray-400 hover:bg-white/5 hover:text-white border-l-2 border-transparent' }}">
+                    <svg class="mr-3 h-5 w-5 {{ request()->routeIs('admin.prescriptions.*') ? 'text-rose-400' : 'text-gray-500 group-hover:text-white' }} transition-colors"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Prescriptions
+                </a>
+
                 <a href="{{ route('admin.vouchers.index') }}"
                     class="group flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-300 {{ request()->routeIs('admin.vouchers.*') ? 'bg-gradient-to-r from-rose-500/10 to-transparent text-rose-400 border-l-2 border-rose-500' : 'text-gray-400 hover:bg-white/5 hover:text-white border-l-2 border-transparent' }}">
                     <svg class="mr-3 h-5 w-5 {{ request()->routeIs('admin.vouchers.*') ? 'text-rose-400' : 'text-gray-500 group-hover:text-white' }} transition-colors"

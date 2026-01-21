@@ -29,9 +29,15 @@
                 </div>
             </div>
 
-            <div class="bg-gray-50 border border-gray-100 rounded-xl p-4">
-                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Email</p>
-                <p class="text-gray-900 font-semibold text-lg">{{ $user->email }}</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 border border-gray-100 rounded-xl p-4">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Email</p>
+                    <p class="text-gray-900 font-semibold text-lg">{{ $user->email }}</p>
+                </div>
+                <div class="bg-gray-50 border border-gray-100 rounded-xl p-4">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">WhatsApp</p>
+                    <p class="text-gray-900 font-semibold text-lg">{{ $user->whatsapp }}</p>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

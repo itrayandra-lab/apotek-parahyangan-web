@@ -35,6 +35,7 @@ class UserFormRequest extends FormRequest
                 Rule::unique('users', 'email')->ignore($userId),
             ],
             'role' => ['required', Rule::in(['admin', 'content_manager', 'user'])],
+            'whatsapp' => ['required', 'string', 'max:20'],
         ];
 
         if ($this->isMethod('POST')) {

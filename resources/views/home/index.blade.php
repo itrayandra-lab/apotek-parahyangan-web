@@ -86,7 +86,7 @@
                 </a>
 
                 {{-- Prescription Shortcut --}}
-                <a href="#upload-recipe" class="group glass-panel p-6 rounded-3xl border border-white hover:border-emerald-200 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-100/50 flex flex-col items-center text-center space-y-4">
+                <a href="{{ route('prescriptions.create') }}" class="group glass-panel p-6 rounded-3xl border border-white hover:border-emerald-200 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-100/50 flex flex-col items-center text-center space-y-4">
                     <div class="w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>

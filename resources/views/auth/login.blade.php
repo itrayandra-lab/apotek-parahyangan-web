@@ -47,11 +47,12 @@
                 <form class="space-y-6" action="{{ route('login.post') }}" method="POST">
                     @csrf
                     <div>
-                        <label for="email_or_username" class="block text-sm font-bold text-gray-700 uppercase tracking-widest">Email or Username</label>
+                        <label for="email_or_username" class="block text-sm font-bold text-gray-700 uppercase tracking-widest">Email, Username, atau No. WhatsApp</label>
                         <div class="mt-2">
                             <input id="email_or_username" name="email_or_username" type="text" autocomplete="username" required 
                                 class="block w-full rounded-xl border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm py-3 px-4 bg-white/50"
-                                value="{{ old('email_or_username') }}">
+                                value="{{ old('email_or_username') }}"
+                                placeholder="Email / Username / 08...">
                         </div>
                     </div>
 

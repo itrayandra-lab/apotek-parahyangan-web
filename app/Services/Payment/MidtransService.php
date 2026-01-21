@@ -25,13 +25,19 @@ class MidtransService implements PaymentGatewayInterface
         Config::$is3ds = (bool) config('midtrans.enable_3ds', true);
     }
 
-    public function createTransaction(Order $order): array
+    public function createTransaction($order): array
     {
-        $order->loadMissing(['items', 'user']);
+        // For standard Order model, load missing relationships
+        if (method_exists($order, 'loadMissing')) {
+            $order->loadMissing(['items', 'user']);
+        }
+
+        // Use invoice_number if available, fallback to order_number
+        $orderId = $order->invoice_number ?? $order->order_number ?? 'ORDER-' . $order->id;
 
         $params = [
             'transaction_details' => [
-                'order_id' => $order->order_number,
+                'order_id' => $orderId,
                 'gross_amount' => $order->total,
             ],
             'customer_details' => [
@@ -56,8 +62,8 @@ class MidtransService implements PaymentGatewayInterface
                 'duration' => config('midtrans.snap.custom_expiry.duration', 24),
             ],
             'callbacks' => [
-                'finish' => config('midtrans.finish_url') ?: route('checkout.confirmation', ['order' => $order->id]),
-                'unfinish' => config('midtrans.unfinish_url') ?: route('checkout.pending', ['order' => $order->id]),
+                'finish' => config('midtrans.finish_url') ?: ($order instanceof Order ? route('checkout.confirmation', ['order' => $order->id]) : route('prescriptions.show', ['prescription' => $order->prescription_id])),
+                'unfinish' => config('midtrans.unfinish_url') ?: ($order instanceof Order ? route('checkout.pending', ['order' => $order->id]) : route('prescriptions.show', ['prescription' => $order->prescription_id])),
                 'error' => config('midtrans.error_url') ?: route('checkout.error'),
             ],
         ];
@@ -83,33 +89,40 @@ class MidtransService implements PaymentGatewayInterface
     /**
      * @return array<int, array<string, mixed>>
      */
-    private function mapItems(Order $order): array
+    private function mapItems($order): array
     {
         $items = [];
 
         foreach ($order->items as $item) {
+            $itemId = $item->product_id;
+            
+            // Fallback for items without product_id (especially in prescriptions)
+            if (empty($itemId)) {
+                $itemId = !empty($item->medicine_id) ? 'MED-' . $item->medicine_id : 'ITEM-' . $item->id;
+            }
+
             $items[] = [
-                'id' => $item->product_id,
-                'price' => $item->product_price,
+                'id' => $itemId,
+                'price' => (int) ($item->product_price ?? $item->price_at_purchase),
                 'quantity' => $item->quantity,
-                'name' => $item->product_name,
+                'name' => $item->product_name ?? $item->name,
             ];
         }
 
-        if ($order->shipping_cost > 0) {
+        if (isset($order->shipping_cost) && $order->shipping_cost > 0) {
             $items[] = [
                 'id' => 'SHIPPING',
-                'price' => $order->shipping_cost,
+                'price' => (int) $order->shipping_cost,
                 'quantity' => 1,
                 'name' => 'Shipping Cost',
             ];
         }
 
         // Add voucher discount as negative item
-        if ($order->voucher_discount > 0) {
+        if (isset($order->voucher_discount) && $order->voucher_discount > 0) {
             $items[] = [
                 'id' => 'VOUCHER',
-                'price' => -$order->voucher_discount,
+                'price' => -(int) $order->voucher_discount,
                 'quantity' => 1,
                 'name' => 'Voucher Discount ('.($order->voucher_code ?? 'VOUCHER').')',
             ];

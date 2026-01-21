@@ -15,7 +15,7 @@ interface PaymentGatewayInterface
      *     token?: string|null,
      * }
      */
-    public function createTransaction(Order $order): array;
+    public function createTransaction($order): array;
 
     /**
      * Verify notification payload from gateway.
