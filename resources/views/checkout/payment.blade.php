@@ -95,12 +95,15 @@
                     </div>
 
                     <div class="flex flex-col gap-4">
-                        <a href="{{ route('customer.dashboard') }}" 
-                           class="w-full bg-gray-900 text-white py-4 rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-primary transition-all duration-300 text-center">
-                            Selesai & Ke Dashboard
-                        </a>
+                        <form action="{{ route('checkout.pay-offline', $order) }}" method="POST">
+                            @csrf
+                            <button type="submit" 
+                               class="w-full bg-gray-900 text-white py-4 rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-primary transition-all duration-300 text-center shadow-lg hover:shadow-xl">
+                                Konfirmasi Pembayaran di Apotek
+                            </button>
+                        </form>
                         <p class="text-center text-xs text-gray-500">
-                            Pesanan Anda telah dicatat. Anda dapat melihat status pengambilan di dashboard.
+                            Klik tombol di atas setelah Anda memastikan akan membayar langsung di apotek.
                         </p>
                     </div>
                 </div>
@@ -117,10 +120,7 @@
                 triggerSnap();
             });
 
-            // Auto-trigger snap on load if payment method is online
-            if ("{{ $order->payment_gateway }}" === 'midtrans' && "{{ $order->payment_status }}" === 'unpaid') {
-                triggerSnap();
-            }
+            // Trigger snap only on click (auto-trigger removed as per request)
 
             function triggerSnap() {
                 window.snap.pay('{{ $snapToken }}', {

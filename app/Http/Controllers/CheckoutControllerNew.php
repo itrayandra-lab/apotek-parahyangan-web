@@ -305,7 +305,7 @@ class CheckoutControllerNew extends Controller
                 // PREVIOUS LOGIC: if online, keep in cart. Since now default is simplified, we treat it as online pending.
                 // Store selected item IDs in order metadata for later cleanup
                 $order->update([
-                    'metadata' => ['selected_cart_items' => $selectedItemIds]
+                    'metadata' => ['selected_cart_items' => $selectedItems]
                 ]);
                 
                 // Add activity to dashboard
@@ -377,6 +377,8 @@ class CheckoutControllerNew extends Controller
         return view('checkout.payment', [
             'order' => $order,
             'snapToken' => $order->snap_token,
+            'snapUrl' => config('midtrans.snap_url'),
+            'clientKey' => config('midtrans.client_key'),
         ]);
     }
 

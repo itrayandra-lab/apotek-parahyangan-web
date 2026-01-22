@@ -63,10 +63,11 @@ Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')
 
 // Checkout routes (auth only)
 Route::middleware(['auth', 'customer.auth'])->group(function () {
-    Route::get('/checkout', [CheckoutControllerNew::class, 'form'])->name('checkout.form');
-    Route::post('/checkout', [CheckoutControllerNew::class, 'process'])->name('checkout.process');
-    Route::get('/checkout/payment/{order}', [CheckoutControllerNew::class, 'payment'])->name('checkout.payment');
-    Route::get('/checkout/confirmation/{order}', [CheckoutControllerNew::class, 'confirmation'])->name('checkout.confirmation');
+    Route::get('/checkout', [CheckoutController::class, 'form'])->name('checkout.form');
+    Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+    Route::post('/checkout/pay-offline/{order}', [CheckoutController::class, 'payOffline'])->name('checkout.pay-offline');
+    Route::get('/checkout/payment/{order}', [CheckoutController::class, 'payment'])->name('checkout.payment');
+    Route::get('/checkout/confirmation/{order}', [CheckoutController::class, 'confirmation'])->name('checkout.confirmation');
     Route::get('/checkout/pending/{order}', [CheckoutController::class, 'pending'])->name('checkout.pending');
 
     Route::prefix('api/indonesia')->name('indonesia.')->group(function (): void {

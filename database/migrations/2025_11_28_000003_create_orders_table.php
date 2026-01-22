@@ -37,10 +37,8 @@ return new class extends Migration
             ])->default('unpaid');
             $table->enum('payment_gateway', [
                 'midtrans',
-                'xendit',
-                'doku',
                 'manual',
-            ])->default('midtrans');
+            ])->nullable();
             $table->string('payment_type', 50)->nullable();
             $table->string('payment_external_id')->nullable()->index();
             $table->text('payment_url')->nullable();

@@ -13,6 +13,7 @@ class OrderController extends Controller
         $user = Auth::guard('web')->user();
 
         $orders = Order::where('user_id', $user->id)
+            ->with(['items.product'])
             ->latest()
             ->paginate(10);
 

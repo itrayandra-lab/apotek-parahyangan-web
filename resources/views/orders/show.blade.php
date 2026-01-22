@@ -53,20 +53,14 @@
                             <div><dt class="font-semibold text-gray-900">External ID</dt><dd>{{ $order->payment_external_id ?? '-' }}</dd></div>
                         </dl>
 
-                        @if($order->payment_status === 'unpaid' && $order->snap_token)
+                        @if($order->payment_status === 'unpaid')
                             <div class="mt-6 pt-6 border-t border-gray-200">
                                 <a href="{{ route('checkout.payment', ['order' => $order->id]) }}"
                                    class="block w-full bg-primary text-white text-center px-6 py-3 rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-primary-dark transition-all duration-300">
                                     Bayar Sekarang
                                 </a>
                                 <p class="text-xs text-gray-500 text-center mt-2">
-                                    Klik untuk melanjutkan pembayaran melalui Midtrans
-                                </p>
-                            </div>
-                        @elseif($order->payment_status === 'unpaid' && !$order->snap_token)
-                            <div class="mt-6 pt-6 border-t border-gray-200">
-                                <p class="text-xs text-rose-600 text-center">
-                                    Token pembayaran tidak tersedia. Silakan hubungi customer service.
+                                    Klik untuk memilih metode pembayaran (Online atau Apotek)
                                 </p>
                             </div>
                         @endif
