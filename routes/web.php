@@ -114,6 +114,7 @@ Route::middleware(['auth', 'customer.auth'])->group(function () {
     Route::put('/profile', [App\Http\Controllers\CustomerController::class, 'updateProfile'])->name('customer.profile.update');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 
     // User addresses
     Route::get('/addresses', [UserAddressController::class, 'index'])->name('addresses.index');
@@ -129,6 +130,9 @@ Route::middleware(['auth', 'customer.auth'])->group(function () {
     Route::post('/prescriptions', [PrescriptionController::class, 'store'])->name('prescriptions.store');
     Route::get('/prescriptions/{prescription}', [PrescriptionController::class, 'show'])->name('prescriptions.show');
     Route::get('/prescriptions/payment/{prescriptionOrder}', [PrescriptionController::class, 'payment'])->name('prescriptions.payment');
+    Route::post('/prescriptions/pay-offline/{prescriptionOrder}', [PrescriptionController::class, 'payOffline'])->name('prescriptions.pay-offline');
+    Route::get('/prescriptions/order/confirmation/{prescriptionOrder}', [PrescriptionController::class, 'confirmation'])->name('prescriptions.confirmation');
+    Route::get('/prescriptions/order/pending/{prescriptionOrder}', [PrescriptionController::class, 'pending'])->name('prescriptions.pending');
     Route::get('/prescription-orders/{prescriptionOrder}', [PrescriptionController::class, 'showOrder'])->name('prescriptions.order');
     
     // API for prescription status polling
@@ -164,8 +168,12 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
         Route::get('orders', [AdminOrderController::class, 'index'])->name('orders.index');
         Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::post('orders/{order}/mark-paid', [AdminOrderController::class, 'markPaid'])->name('orders.mark-paid');
+        Route::patch('orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.update-status');
         Route::get('orders/{order}/payment-callback', [AdminOrderController::class, 'paymentCallback'])->name('orders.payment-callback');
         Route::patch('orders/{order}/update-awb', [AdminOrderController::class, 'updateAwb'])->name('orders.update-awb');
+        Route::patch('orders/{order}/update-prescription-status', [AdminOrderController::class, 'updatePrescriptionStatus'])->name('orders.update-prescription-status');
+        Route::post('order-items/{item}/reject', [AdminOrderController::class, 'rejectItem'])->name('order-items.reject');
+        Route::post('orders/{order}/sync-total', [AdminOrderController::class, 'syncTotal'])->name('orders.sync-total');
 
         Route::get('chatbot-settings', [ChatbotSettingsController::class, 'index'])->name('chatbot.settings');
         Route::post('chatbot-settings', [ChatbotSettingsController::class, 'update'])->name('chatbot.settings.update');

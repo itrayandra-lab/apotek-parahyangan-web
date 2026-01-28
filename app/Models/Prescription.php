@@ -42,11 +42,19 @@ class Prescription extends Model
     }
 
     /**
-     * Get the order created from this prescription
+     * Get the order created from this prescription (Prescription Order flow)
      */
     public function order(): HasOne
     {
         return $this->hasOne(PrescriptionOrder::class);
+    }
+
+    /**
+     * Get the standard order this prescription is linked to (Checkout flow)
+     */
+    public function standardOrder(): HasOne
+    {
+        return $this->hasOne(Order::class);
     }
 
     /**

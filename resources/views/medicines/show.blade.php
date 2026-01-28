@@ -88,7 +88,7 @@
                         <div class="mt-8 grid grid-cols-2 gap-4">
                             <div class="p-4 rounded-3xl bg-gray-50 border border-gray-100 flex items-center gap-4">
                                 <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm overflow-hidden">
-                                     <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Badan_POM.png" class="w-8 object-contain" alt="BPOM">
+                                     <img src="https://upload.wikimedia.org/wikipedia/id/a/a8/BADAN_POM.png" class="w-8 object-contain" alt="BPOM">
                                 </div>
                                 <div>
                                     <span class="block text-[8px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">BPOM Registered</span>
@@ -112,10 +112,7 @@
                 <div class="lg:col-span-6">
                     <div class="mb-10">
                         <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs font-bold tracking-[0.2em] text-rose-600 uppercase">{{ $medicine->category->name ?? 'Farmasi' }}</span>
-                            @if($medicine->manufacturer)
-                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">By {{ $medicine->manufacturer }}</span>
-                            @endif
+                            <span class="text-xs font-bold tracking-[0.2em] text-rose-600 uppercase">By {{ $medicine->manufacturer }}</span>
                         </div>
                         <h1 class="text-3xl md:text-4xl font-sans font-semibold text-gray-900 mb-4">{{ $medicine->name }}</h1>
                         <p class="text-gray-400 text-xs mb-6">10+ orang telah memesan barang ini</p>
@@ -231,13 +228,13 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <button @click="addToCart()" :disabled="addingToCart || stock <= 0"
                                         class="w-full bg-rose-500 text-white py-5 rounded-2xl text-xs font-bold tracking-[0.2em] uppercase hover:bg-rose-600 transition-all duration-300 shadow-xl shadow-rose-500/20 flex items-center justify-center gap-3">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 120 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 20 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                                         <span x-text="addingToCart ? 'Menambahkan...' : 'Beli Sekarang'"></span>
                                     </button>
                                     <a href="https://wa.me/6281234567890?text=Halo%20Apotek%20Parahyangan,%20saya%20ingin%20tanya%20tentang%20produk%20{{ urlencode($medicine->name) }}" 
                                        target="_blank"
                                        class="w-full bg-white text-rose-500 border border-rose-100 py-5 rounded-2xl text-xs font-bold tracking-[0.15em] uppercase hover:bg-rose-50 transition-all text-center flex items-center justify-center gap-2">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/></svg>
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/></svg>
                                         Tanya Apoteker
                                     </a>
                                 </div>

@@ -61,9 +61,13 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Pilih minimal satu produk untuk checkout.');
         }
 
-        // Calculate subtotal for selected items
-        $subtotal = $selectedItems->sum(function ($item) {
+        // Calculate subtotal and check for prescription drugs (Obat Keras)
+        $hasPrescriptionDrugs = false;
+        $subtotal = $selectedItems->sum(function ($item) use (&$hasPrescriptionDrugs) {
             $isMedicine = (bool) $item->medicine_id;
+            if ($isMedicine && $item->medicine?->classification === 'Obat Keras') {
+                $hasPrescriptionDrugs = true;
+            }
             $price = $isMedicine ? $item->medicine?->price : ($item->product?->discount_price ?? $item->product?->price);
             return $price * $item->quantity;
         });
@@ -77,6 +81,7 @@ class CheckoutController extends Controller
             'subtotal' => $subtotal,
             'selectedItemIds' => $selectedItemIds,
             'invoiceNumber' => $invoiceNumber,
+            'hasPrescriptionDrugs' => $hasPrescriptionDrugs,
         ]);
     }
 
@@ -89,6 +94,7 @@ class CheckoutController extends Controller
             'phone' => 'required|string|max:20',
             'voucher_code' => 'nullable|string|max:50',
             'notes' => 'nullable|string|max:1000',
+            'prescription_file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -119,8 +125,19 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Produk yang dipilih tidak valid.');
         }
 
+        // Check for prescription drugs
+        $hasPrescriptionDrugs = $selectedItems->contains(function ($item) {
+            return $item->medicine_id && $item->medicine?->classification === 'Obat Keras';
+        });
+
+        if ($hasPrescriptionDrugs && !$request->hasFile('prescription_file')) {
+            return redirect()->back()
+                ->withErrors(['prescription_file' => 'Resep wajib diunggah untuk pembelian obat keras.'])
+                ->withInput();
+        }
+
         try {
-            $order = DB::transaction(function () use ($selectedItems, $user, $request): Order {
+            $order = DB::transaction(function () use ($selectedItems, $user, $request, $hasPrescriptionDrugs): Order {
                 // Lock items to prevent race condition (overselling)
                 $productIds = $selectedItems->whereNotNull('product_id')->pluck('product_id')->toArray();
                 $medicineIds = $selectedItems->whereNotNull('medicine_id')->pluck('medicine_id')->toArray();
@@ -207,8 +224,23 @@ class CheckoutController extends Controller
                     'phone' => $request->string('phone'),
                     'notes' => $request->string('notes'),
                     'payment_expired_at' => now()->addHours(24),
-                    'metadata' => ['selected_cart_items' => $selectedItems], // Store selected items logic
+                    'metadata' => ['selected_cart_items' => $selectedItems],
                 ]);
+
+                // Handle Prescription Upload
+                if ($hasPrescriptionDrugs && $request->hasFile('prescription_file')) {
+                    $file = $request->file('prescription_file');
+                    $path = $file->store('prescriptions', 'public');
+
+                    $prescription = \App\Models\Prescription::create([
+                        'user_id' => $user->id,
+                        'image_path' => $path,
+                        'user_notes' => 'Uploaded during checkout for order ' . $order->order_number,
+                        'status' => 'pending',
+                    ]);
+
+                    $order->update(['prescription_id' => $prescription->id]);
+                }
 
                 // Create order items for selected items only
                 foreach ($selectedItems as $item) {
@@ -240,6 +272,11 @@ class CheckoutController extends Controller
                             $medicine->decrementStock($item->quantity);
                         }
                     }
+                }
+
+                // Delete selected items from cart immediately after order creation
+                foreach ($selectedItems as $item) {
+                    $item->delete();
                 }
 
                 if ($voucher) {

@@ -11,6 +11,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @yield('styles')
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
     {{-- <x-rich-text::styles theme="richtextlaravel" data-turbo-track="false" /> --}}
 </head>
 

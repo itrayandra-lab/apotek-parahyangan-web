@@ -22,6 +22,7 @@ class Order extends Model
         'order_number',
         'invoice_number',
         'user_id',
+        'prescription_id',
         'status',
         'subtotal',
         'shipping_cost',
@@ -34,6 +35,7 @@ class Order extends Model
         'shipping_weight',
         'rajaongkir_destination_id',
         'total',
+        'refund_amount',
         'payment_status',
         'payment_gateway',
         'payment_type',
@@ -95,6 +97,11 @@ class Order extends Model
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function prescription(): BelongsTo
+    {
+        return $this->belongsTo(Prescription::class);
     }
 
     public function scopePending(Builder $query): Builder
@@ -284,5 +291,27 @@ class Order extends Model
         $this->save();
 
         return true;
+    }
+
+    public function recalculateTotal(): void
+    {
+        if ($this->isPaid()) {
+            return;
+        }
+
+        // Subtotal is sum of non-cancelled items
+        $this->subtotal = $this->items()->where('status', '!=', 'cancelled')->sum('subtotal');
+        
+        // Total = subtotal - voucher + shipping
+        $this->total = max(0, $this->subtotal - ($this->voucher_discount ?? 0) + ($this->shipping_cost ?? 0));
+        
+        // Clear payment links as amount changed
+        $this->snap_token = null;
+        $this->payment_url = null;
+        
+        // If not paid, refund amount should be 0 because we reduced the tagihan
+        $this->refund_amount = 0;
+        
+        $this->save();
     }
 }

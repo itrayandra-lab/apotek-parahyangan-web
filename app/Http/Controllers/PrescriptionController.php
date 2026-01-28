@@ -170,4 +170,55 @@ class PrescriptionController extends Controller
             'clientKey' => config('midtrans.client_key'),
         ]);
     }
+
+    /**
+     * Handle prescription order offline payment choice
+     */
+    public function payOffline(PrescriptionOrder $prescriptionOrder)
+    {
+        // Ensure user can only pay their own orders
+        if ($prescriptionOrder->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized access');
+        }
+
+        if ($prescriptionOrder->payment_status === 'paid') {
+            return redirect()->route('prescriptions.show', $prescriptionOrder->prescription_id);
+        }
+
+        $prescriptionOrder->update([
+            'payment_gateway' => 'manual',
+        ]);
+
+        return redirect()->route('orders.index')->with('success', 'Metode pembayaran apotek dipilih. Silakan lakukan pembayaran di kasir.');
+    }
+
+    /**
+     * Show prescription order confirmation
+     */
+    public function confirmation(PrescriptionOrder $prescriptionOrder)
+    {
+        // Ensure user can only pay their own orders
+        if ($prescriptionOrder->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized access');
+        }
+
+        return view('checkout.confirmation', [
+            'order' => $prescriptionOrder->load('items'),
+        ]);
+    }
+
+    /**
+     * Show prescription order pending status
+     */
+    public function pending(PrescriptionOrder $prescriptionOrder)
+    {
+        // Ensure user can only pay their own orders
+        if ($prescriptionOrder->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized access');
+        }
+
+        return view('checkout.pending', [
+            'order' => $prescriptionOrder,
+        ]);
+    }
 }

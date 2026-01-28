@@ -6,11 +6,11 @@
 <div class="section-container section-padding">
     <!-- Header -->
     <div class="mb-8">
-        <a href="{{ route('admin.prescriptions.index') }}" class="inline-flex items-center text-rose-600 hover:text-rose-700 mb-4 transition-colors">
+        <a href="{{ route('admin.orders.index') }}" class="inline-flex items-center text-rose-600 hover:text-rose-700 mb-4 transition-colors">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
-            Back to Prescriptions
+            Back to Orders
         </a>
         <h1 class="text-4xl md:text-5xl font-display font-medium uppercase text-gray-900 mb-2 tracking-wide">
             Prescription #{{ $prescription->id }}
@@ -172,7 +172,7 @@
                         <div class="flex justify-between items-start mb-10 border-b border-gray-50 pb-6">
                             <div>
                                 <h1 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-1">Order Summary</h1>
-                                <p class="text-2xl font-display font-bold text-gray-900">#{{ $prescription->order->id }}</p>
+                                <p class="text-2xl font-display font-bold text-gray-900">{{ $prescription->order->invoice_number ?? '#' . $prescription->order->id }}</p>
                             </div>
                             <div class="text-right">
                                 <span class="px-4 py-1.5 bg-rose-500 text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-rose-200">
@@ -218,8 +218,8 @@
                             </div>
                         </div>
 
-                        <!-- Scan & Action -->
-                        <div class="text-center p-8 bg-rose-50/30 rounded-3xl border border-rose-100/50 mb-10">
+                        <!-- Scan & Action (Hidden as per request) -->
+                        <div class="hidden text-center p-8 bg-rose-50/30 rounded-3xl border border-rose-100/50 mb-10">
                             <p class="text-[10px] uppercase font-black text-rose-500 mb-6 tracking-widest">Verification QR Code</p>
                             <div class="inline-block p-4 bg-white rounded-2xl shadow-xl ring-1 ring-rose-100">
                                 {!! $prescription->order->qr_code_data_url !!}

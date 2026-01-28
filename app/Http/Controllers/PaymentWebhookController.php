@@ -121,18 +121,15 @@ class PaymentWebhookController extends Controller
         $order->payment_callback_data = $payload;
         $order->save();
 
-        // Record to sales and sale_details if paid
-        if ($order->payment_status === 'paid') {
-            \App\Models\Sale::recordFromOrder($order);
-            
-            // Clean up cart items for online payment orders
-            if ($order instanceof Order) {
-                $this->cleanupCartItems($order);
+            // Record to sales and sale_details if paid
+            if ($order->payment_status === 'paid') {
+                \App\Models\Sale::recordFromOrder($order);
                 
-                // Update activity
-                $this->activityService->updateOrderActivity($order, 'paid');
+                if ($order instanceof Order) {
+                    // Update activity
+                    $this->activityService->updateOrderActivity($order, 'paid');
+                }
             }
-        }
 
         // Restore stock only if needed (prevents double restore)
         if ($shouldRestoreStock) {
@@ -188,33 +185,4 @@ class PaymentWebhookController extends Controller
         }
     }
     
-    private function cleanupCartItems(Order $order): void
-    {
-        try {
-            // Get selected cart item IDs from order metadata
-            $metadata = $order->metadata ?? [];
-            $selectedCartItemIds = $metadata['selected_cart_items'] ?? [];
-            
-            if (!empty($selectedCartItemIds)) {
-                // Find user's cart
-                $cart = Cart::where('user_id', $order->user_id)->first();
-                
-                if ($cart) {
-                    // Remove the selected items from cart
-                    $cart->items()->whereIn('id', $selectedCartItemIds)->delete();
-                    
-                    Log::info('Cleaned up cart items after payment', [
-                        'order_id' => $order->id,
-                        'cart_id' => $cart->id,
-                        'removed_items' => $selectedCartItemIds,
-                    ]);
-                }
-            }
-        } catch (\Exception $e) {
-            Log::error('Failed to cleanup cart items', [
-                'order_id' => $order->id,
-                'error' => $e->getMessage(),
-            ]);
-        }
-    }
 }

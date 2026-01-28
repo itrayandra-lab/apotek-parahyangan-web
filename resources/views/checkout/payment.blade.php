@@ -1,3 +1,10 @@
+@php
+    $isPrescription = $order instanceof \App\Models\PrescriptionOrder;
+    $payOfflineRoute = $isPrescription ? 'prescriptions.pay-offline' : 'checkout.pay-offline';
+    $confirmationRoute = $isPrescription ? 'prescriptions.confirmation' : 'checkout.confirmation';
+    $pendingRoute = $isPrescription ? 'prescriptions.pending' : 'checkout.pending';
+@endphp
+
 @extends('layouts.app')
 
 @section('title', 'Pembayaran - Beautylatory')
@@ -95,7 +102,7 @@
                     </div>
 
                     <div class="flex flex-col gap-4">
-                        <form action="{{ route('checkout.pay-offline', $order) }}" method="POST">
+                        <form action="{{ route($payOfflineRoute, $order) }}" method="POST">
                             @csrf
                             <button type="submit" 
                                class="w-full bg-gray-900 text-white py-4 rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-primary transition-all duration-300 text-center shadow-lg hover:shadow-xl">
@@ -125,10 +132,10 @@
             function triggerSnap() {
                 window.snap.pay('{{ $snapToken }}', {
                     onSuccess: function (result) {
-                        window.location.href = '{{ route('checkout.confirmation', ['order' => $order->id]) }}';
+                        window.location.href = '{{ route($confirmationRoute, [$isPrescription ? 'prescriptionOrder' : 'order' => $order->id]) }}';
                     },
                     onPending: function (result) {
-                        window.location.href = '{{ route('checkout.pending', ['order' => $order->id]) }}';
+                        window.location.href = '{{ route($pendingRoute, [$isPrescription ? 'prescriptionOrder' : 'order' => $order->id]) }}';
                     },
                     onError: function (result) {
                         window.location.href = '{{ route('checkout.error') }}';

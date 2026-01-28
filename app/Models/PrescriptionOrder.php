@@ -16,6 +16,7 @@ class PrescriptionOrder extends Model
         'user_id',
         'prescription_id',
         'order_number',
+        'invoice_number',
         'total_price',
         'payment_status',
         'payment_gateway',
@@ -51,6 +52,9 @@ class PrescriptionOrder extends Model
             }
             if (empty($order->order_number)) {
                 $order->order_number = $order->generateOrderNumber();
+            }
+            if (empty($order->invoice_number)) {
+                $order->invoice_number = $order->order_number;
             }
         });
     }
@@ -195,7 +199,9 @@ class PrescriptionOrder extends Model
     }
 
     public function getShippingCityAttribute() { return 'Bandung'; }
+    public function getShippingProvinceAttribute() { return 'Jawa Barat'; }
     public function getShippingPostalCodeAttribute() { return '40161'; }
-    public function getShippingCostAttribute() { return 0; }
+    public function getShippingVillageAttribute() { return null; }
+    public function getShippingDistrictAttribute() { return null; }
     public function getVoucherDiscountAttribute() { return 0; }
 }

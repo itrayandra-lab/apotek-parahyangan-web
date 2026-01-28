@@ -14,11 +14,6 @@
                 <circle cx="80" cy="20" r="40" />
             </svg>
         </div>
-        <div class="absolute bottom-0 left-0 w-1/4 h-1/2 opacity-5 pointer-events-none">
-            <svg class="w-full h-full text-blue-500" viewBox="0 0 100 100" fill="currentColor">
-                <rect x="0" y="50" width="100" height="50" rx="10" />
-            </svg>
-        </div>
 
         <div class="container mx-auto px-6 relative z-10 text-center">
             <div class="max-w-4xl mx-auto space-y-8 animate-fade-in">

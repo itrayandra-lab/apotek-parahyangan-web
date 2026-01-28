@@ -22,6 +22,7 @@ class OrderItem extends Model
         'product_name',
         'product_price',
         'quantity',
+        'status',
         'subtotal',
     ];
 
@@ -49,6 +50,6 @@ class OrderItem extends Model
 
     public function medicine(): BelongsTo
     {
-        return $this->belongsTo(Medicine::class)->withTrashed();
+        return $this->belongsTo(Medicine::class);
     }
 }
