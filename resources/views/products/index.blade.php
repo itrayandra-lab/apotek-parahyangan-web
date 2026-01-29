@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Collection - Beautylatory')
+@section('title', 'Koleksi Produk - Apotek Parahyangan Suite')
 
 @section('styles')
 <style>
@@ -28,7 +28,7 @@
 @endsection
 
 @section('content')
-    <div class="pt-12 pb-24 min-h-screen bg-gray-50 relative overflow-hidden">
+    <div class="pb-24 min-h-screen bg-gray-50 relative overflow-hidden" style="padding-top: 180px;">
         {{-- Background Elements --}}
         <div class="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-rose-50/50 to-transparent pointer-events-none"></div>
         <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-rose-100/30 rounded-full blur-3xl pointer-events-none animate-slow-spin"></div>
@@ -39,9 +39,9 @@
 
             {{-- Page Header --}}
             <div class="max-w-4xl mx-auto text-center mb-16">
-                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block animate-fade-in-up delay-100">Discover Excellence</span>
+                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block animate-fade-in-up delay-100">Temukan Kualitas Terbaik</span>
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-medium bg-gradient-to-r from-[#484A56] via-[#9C6C6D] via-[#B58687] to-[#7A5657] bg-clip-text text-transparent uppercase leading-[1.1] mb-8 animate-fade-in-up delay-200">
-                    CURATED COLLECTION
+                    KOLEKSI PILIHAN
                 </h1>
                 
                 {{-- Search Bar --}}
@@ -51,9 +51,9 @@
                             <input type="hidden" name="category" value="{{ request('category') }}">
                         @endif
                         <input type="text" name="search" value="{{ request('search') }}" 
-                            placeholder="Search our products..."
-                            class="w-full h-16 pl-14 pr-6 rounded-2xl bg-white shadow-xl shadow-rose-100/20 border border-gray-100 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none text-gray-700 text-lg">
-                        <div class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors">
+                            placeholder="Cari produk kami..."
+                            class="w-full h-16 pl-14 pr-6 rounded-full bg-white shadow-2xl shadow-rose-100/50 border border-gray-100 focus:border-rose-400 focus:ring-4 focus:ring-rose-500/5 transition-all outline-none text-gray-700 text-lg">
+                        <div class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-rose-500 transition-colors">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
@@ -69,13 +69,13 @@
                 </div>
 
                 <p class="text-lg md:text-xl text-gray-600 font-light leading-relaxed max-w-2xl mx-auto animate-fade-in-up delay-[400ms]">
-                    Explore our scientifically formulated healthcare products, designed to support your wellbeing through trusted pharmaceutical excellence.
+                    Jelajahi produk kesehatan kami yang diformulasikan secara ilmiah, dirancang untuk mendukung kesejahteraan Anda melalui keunggulan farmasi terpercaya.
                 </p>
             </div>
 
             {{-- Category Filter Section with Horizontal Scroll --}}
             <div class="mb-16 animate-fade-in-up delay-300" x-data="{ scrollContainer: null }" x-init="scrollContainer = $refs.categoryScroll">
-                <div class="relative max-w-5xl mx-auto px-4 md:px-12">
+                <div class="relative mx-auto px-4 md:px-12">
                     {{-- Left Arrow --}}
                     <button @click="scrollContainer?.scrollBy({ left: -300, behavior: 'smooth' })"
                             class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full glass-panel hover:bg-white text-gray-600 hover:text-gray-900 transition-all duration-300 hidden md:flex items-center justify-center shadow-lg">
@@ -91,7 +91,7 @@
                                   {{ !request()->get('category')
                                       ? 'bg-gray-900 text-white border-gray-900 shadow-lg shadow-gray-900/20 transform scale-105'
                                       : 'bg-white border-gray-200 text-gray-500 hover:border-primary hover:text-primary hover:-translate-y-1' }}">
-                            All Products
+                            Semua Produk
                         </a>
                         @foreach($categories as $category)
                             <a href="{{ route('products.index', array_merge(request()->only('search'), ['category' => $category->id])) }}"
@@ -126,10 +126,10 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-medium bg-gradient-to-r from-[#484A56] via-[#9C6C6D] via-[#B58687] to-[#7A5657] bg-clip-text text-transparent uppercase mb-2">NO PRODUCTS FOUND</h3>
-                        <p class="text-gray-500 font-light mb-8">We couldn't find any products matching your selection.</p>
+                        <h3 class="text-2xl font-display font-medium bg-gradient-to-r from-[#484A56] via-[#9C6C6D] via-[#B58687] to-[#7A5657] bg-clip-text text-transparent uppercase mb-2">PRODUK TIDAK DITEMUKAN</h3>
+                        <p class="text-gray-500 font-light mb-8">Kami tidak dapat menemukan produk yang sesuai dengan pilihan Anda.</p>
                         <a href="{{ route('products.index') }}" class="inline-flex items-center gap-2 text-primary font-bold tracking-widest uppercase text-xs border-b border-primary pb-1 hover:text-rose-600 hover:border-rose-600 transition-colors">
-                            Clear All Filters
+                            Hapus Semua Filter
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
@@ -155,7 +155,7 @@
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
                             </svg>
-                            <span x-text="loading ? 'Loading...' : 'Load More Products'"></span>
+                            <span x-text="loading ? 'Memuat...' : 'Muat Lebih Banyak Produk'"></span>
                         </span>
                     </button>
 
@@ -166,7 +166,7 @@
             {{-- End of Collection Message --}}
             <template x-if="!hasMorePages && ajaxProducts.length > 0">
                 <div class="col-span-full text-center py-12 animate-fade-in-up">
-                    <p class="text-gray-400 text-xs font-bold tracking-widest uppercase">You've reached the end of the collection</p>
+                    <p class="text-gray-400 text-xs font-bold tracking-widest uppercase">Anda telah mencapai akhir koleksi</p>
                 </div>
             </template>
         </div>
@@ -212,7 +212,7 @@
                         }
                     } catch (error) {
                         console.error('Failed to load more products:', error);
-                        window.showToast?.('Failed to load more products. Please try again.', 'error');
+                        window.showToast?.('Gagal memuat produk lebih banyak. Silakan coba lagi.', 'error');
                     } finally {
                         this.loading = false;
                     }
@@ -242,7 +242,7 @@
                                 alt="${this.escapeHtml(product.name)}"
                                 loading="lazy"
                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">`
-                        : `<div class="w-full h-full bg-gray-50 flex items-center justify-center"><span class="text-gray-300 text-xs font-bold tracking-widest uppercase">No Image</span></div>`;
+                        : `<div class="w-full h-full bg-gray-50 flex items-center justify-center"><span class="text-gray-300 text-xs font-bold tracking-widest uppercase">Tanpa Gambar</span></div>`;
 
                     return `
                         <a href="${productUrl}" class="block h-full group" style="animation-delay: ${animationDelay}ms">
@@ -264,7 +264,7 @@
 
                                 <div class="absolute bottom-6 left-0 right-0 px-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                                     <button class="w-full bg-white/90 backdrop-blur text-gray-900 py-3 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg hover:bg-primary hover:text-white transition-colors">
-                                        View Details
+                                        Lihat Detail
                                     </button>
                                 </div>
                             </div>

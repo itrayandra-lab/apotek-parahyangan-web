@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pembayaran Pending - Beautylatory')
+@section('title', 'Pembayaran Pending - Apotek Parahyangan Suite')
 
 @section('content')
     <div class="pt-28 pb-20 bg-gray-50 min-h-screen">

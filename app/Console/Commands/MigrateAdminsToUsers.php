@@ -66,7 +66,7 @@ class MigrateAdminsToUsers extends Command
                 'id' => $admin->id,
                 'name' => $admin->username,
                 'username' => $admin->username,
-                'email' => $admin->username.'@beautylatory.local', // Generate email from username
+                'email' => $admin->username.'@Apotek Parahyangan Suite.local', // Generate email from username
                 'password' => $admin->password_hash, // Use existing hashed password
                 'role' => 'admin',
                 'created_at' => $admin->created_at,

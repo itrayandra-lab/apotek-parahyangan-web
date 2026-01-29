@@ -47,15 +47,33 @@ class ChatController extends Controller
                 ];
 
                 if ($message->type === 'product' && isset($message->metadata['product_id'])) {
-                    $product = \App\Models\Medicine::find($message->metadata['product_id']);
+                    $modelType = $message->metadata['model_type'] ?? 'Medicine';
+                    $product = null;
+
+                    if ($modelType === 'Product') {
+                        $product = \App\Models\Product::find($message->metadata['product_id']);
+                    } else {
+                        $product = \App\Models\Medicine::find($message->metadata['product_id']);
+                    }
+
                     if ($product) {
                         $item['product'] = [
                             'id' => $product->id,
                             'name' => $product->name,
                             'price' => $product->price,
-                            'formatted_price' => $product->formatted_price,
-                            'image_url' => $product->getImageUrl(),
-                            'slug' => $product->slug,
+                            'formatted_price' => $product->formatted_price ?? 'Rp ' . number_format($product->price ?? 0, 0, ',', '.'),
+                            'image_url' => method_exists($product, 'getImageUrl') ? $product->getImageUrl() : null,
+                            'slug' => $modelType === 'Medicine' ? ($product->code ?? $product->slug) : $product->slug,
+                        ];
+                    } else {
+                        // Fallback to metadata values if product disappeared from DB
+                        $item['product'] = [
+                            'id' => $message->metadata['product_id'] ?? 0,
+                            'name' => $message->metadata['product_name'] ?? $message->content,
+                            'price' => $message->metadata['price'] ?? 0,
+                            'formatted_price' => 'Rp ' . number_format($message->metadata['price'] ?? 0, 0, ',', '.'),
+                            'image_url' => $message->metadata['image_url'] ?? null,
+                            'slug' => $message->metadata['slug'] ?? '',
                         ];
                     }
                 }

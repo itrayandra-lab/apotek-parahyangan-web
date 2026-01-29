@@ -145,7 +145,7 @@ POST /admin/prescriptions/verify-qr      - Verify QR code
 - Validate pickup workflow from start to finish
 
 ## Notes
-- All views follow the existing Beautylatory design system
+- All views follow the existing Apotek Parahyangan Suite design system
 - Indonesian language used for customer-facing messages
 - Admin interface uses the existing admin layout pattern
 - Real-time updates use lightweight polling (not WebSockets)

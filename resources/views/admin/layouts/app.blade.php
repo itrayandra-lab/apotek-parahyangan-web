@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Dashboard') - Beautylatory</title>
+    <title>@yield('title', 'Admin Dashboard') - Apotek Parahyangan Suite</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -26,11 +26,48 @@
         @click="mobileMenuOpen = false" style="display: none;"></div>
 
     <aside :class="mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'"
+        x-data="{ 
+            unreadChatCount: {{ $unreadChatCount ?? 0 }}, 
+            unreadContactCount: {{ $unreadContactCount ?? 0 }},
+            pendingPaymentCount: {{ \App\Models\Order::where('status', 'pending_payment')->count() }},
+            async updateCounts() {
+                try {
+                    const res = await axios.get('{{ route('admin.api.chats.unread-counts') }}');
+                    
+                    // Transaction notification (only if count increases)
+                    if (res.data.pendingPaymentCount > this.pendingPaymentCount) {
+                        this.playTransactionSound();
+                    }
+
+                    // Chat notification (only if count increases)
+                    if (res.data.unreadChatCount > this.unreadChatCount) {
+                        this.playChatSound();
+                    }
+
+                    this.unreadChatCount = res.data.unreadChatCount;
+                    this.unreadContactCount = res.data.unreadContactCount;
+                    this.pendingPaymentCount = res.data.pendingPaymentCount;
+                } catch (e) {
+                    console.error('Polling error:', e);
+                }
+            },
+            playTransactionSound() {
+                const audio = new Audio('/audio/notif-transaksi.mp3');
+                audio.volume = 1.0;
+                audio.play().catch(() => {}); // Ignore play errors
+            },
+            playChatSound() {
+                const audio = new Audio('/audio/notif-chat.mp3'); 
+                audio.volume = 1.0;
+                audio.play().catch(() => {}); // Ignore play errors
+            }
+        }"
+        x-init="setInterval(() => updateCounts(), 15000)"
         class="fixed inset-y-0 left-0 z-50 w-72 bg-gray-900 text-white transition-transform duration-300 ease-in-out flex flex-col lg:translate-x-0 lg:fixed lg:inset-y-0 border-r border-white/5 shadow-2xl">
 
         <div class="flex h-24 shrink-0 items-center px-8 bg-gray-900/50">
-            <img src="{{ asset('images/asset-logo-white.png') }}" alt="Beautylatory"
-                class="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity">
+            <img src="{{ asset('images/Logo-apotek-parahyangan-suite.png') }}" alt="Apotek Parahyangan Suite"
+                class="h-10 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
         </div>
 
         <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1 custom-scrollbar">
@@ -83,17 +120,11 @@
                             d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
                     Orders
+                    <span x-show="pendingPaymentCount > 0" x-text="pendingPaymentCount" 
+                          class="ml-auto inline-flex items-center justify-center px-2 py-0.5 text-[10px] font-bold rounded-full bg-primary text-white shadow-sm shadow-primary/20">
+                    </span>
                 </a>
 
-                <a href="{{ route('admin.prescriptions.index') }}"
-                    class="group flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-300 {{ request()->routeIs('admin.prescriptions.*') ? 'bg-gradient-to-r from-rose-500/10 to-transparent text-rose-400 border-l-2 border-rose-500' : 'text-gray-400 hover:bg-white/5 hover:text-white border-l-2 border-transparent' }}">
-                    <svg class="mr-3 h-5 w-5 {{ request()->routeIs('admin.prescriptions.*') ? 'text-rose-400' : 'text-gray-500 group-hover:text-white' }} transition-colors"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Prescriptions
-                </a>
 
                 <a href="{{ route('admin.vouchers.index') }}"
                     class="group flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-300 {{ request()->routeIs('admin.vouchers.*') ? 'bg-gradient-to-r from-rose-500/10 to-transparent text-rose-400 border-l-2 border-rose-500' : 'text-gray-400 hover:bg-white/5 hover:text-white border-l-2 border-transparent' }}">
@@ -187,9 +218,6 @@
             </div>
 
             @if ($isAdmin)
-                @php
-                    $unreadContactCount = \App\Models\ContactMessage::unread()->count();
-                @endphp
                 <a href="{{ route('admin.contact-messages.index') }}"
                     class="group flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-300 {{ request()->routeIs('admin.contact-messages.*') ? 'bg-gradient-to-r from-rose-500/10 to-transparent text-rose-400 border-l-2 border-rose-500' : 'text-gray-400 hover:bg-white/5 hover:text-white border-l-2 border-transparent' }}">
                     <svg class="mr-3 h-5 w-5 {{ request()->routeIs('admin.contact-messages.*') ? 'text-rose-400' : 'text-gray-500 group-hover:text-white' }} transition-colors"
@@ -198,11 +226,20 @@
                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     Contact Messages
-                    @if($unreadContactCount > 0)
-                        <span class="ml-auto inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold rounded-full bg-rose-500 text-white">
-                            {{ $unreadContactCount }}
-                        </span>
-                    @endif
+                    <span x-show="unreadContactCount > 0" x-text="unreadContactCount" class="ml-auto inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold rounded-full bg-rose-500 text-white">
+                    </span>
+                </a>
+
+                <a href="{{ route('admin.chats.index') }}"
+                    class="group flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-300 {{ request()->routeIs('admin.chats.*') ? 'bg-gradient-to-r from-rose-500/10 to-transparent text-rose-400 border-l-2 border-rose-500' : 'text-gray-400 hover:bg-white/5 hover:text-white border-l-2 border-transparent' }}">
+                    <svg class="mr-3 h-5 w-5 {{ request()->routeIs('admin.chats.*') ? 'text-rose-400' : 'text-gray-500 group-hover:text-white' }} transition-colors"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    Customer Chats
+                    <span x-show="unreadChatCount > 0" x-text="unreadChatCount" class="ml-auto inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold rounded-full bg-rose-500 text-white animate-pulse">
+                    </span>
                 </a>
 
                 <a href="{{ route('admin.chatbot.settings') }}"

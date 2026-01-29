@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Beautylatory** is a Laravel 12-based beauty product management system that allows retailers to showcase their products online with an easy-to-use admin interface. The application features a public-facing frontend for customers to browse and filter products by category, plus a secure admin panel for content management.
+**Apotek Parahyangan Suite** is a Laravel 12-based beauty product management system that allows retailers to showcase their products online with an easy-to-use admin interface. The application features a public-facing frontend for customers to browse and filter products by category, plus a secure admin panel for content management.
 
 **Key Purpose:** Enable beauty retailers to manage their product catalog and promotional content efficiently while providing customers with an intuitive browsing experience.
 

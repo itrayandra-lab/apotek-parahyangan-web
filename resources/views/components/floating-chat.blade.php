@@ -6,8 +6,13 @@
 >
     <div
         x-show="isOpen"
-        x-transition
-        class="w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 glass-panel overflow-hidden"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+        x-transition:leave-end="opacity-0 translate-y-8 scale-95"
+        class="w-[350px] md:w-[420px] h-[600px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-gray-100 glass-panel overflow-hidden flex flex-col"
     >
         <div class="bg-gradient-to-r from-rose-500 to-rose-600 text-white p-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -32,17 +37,17 @@
             </button>
         </div>
 
-        <div class="p-4 bg-gray-50">
+        <div class="flex-1 overflow-hidden flex flex-col bg-gray-50/50">
             <template x-if="statusMessage">
-                <div class="mb-3 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest"
+                <div class="m-4 px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest"
                     :class="statusMessage.type === 'error'
                         ? 'bg-rose-50 text-rose-700 border border-rose-100'
                         : 'bg-emerald-50 text-emerald-700 border border-emerald-100'">
                     <span x-text="statusMessage.text"></span>
                 </div>
             </template>
-
-            <div class="h-80 overflow-y-auto space-y-4 pr-1 scroll-smooth" x-ref="messages">
+            
+            <div class="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth" x-ref="messages">
                 <template x-if="messages.length === 0">
                     <div class="text-center mt-10 space-y-4">
                         <div class="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto">
@@ -288,6 +293,11 @@
                                     this.lastId = response.data.last_id;
                                     this.$nextTick(() => this.scrollToBottom());
                                     
+                                    // Play notification sound for admin replies (pharmacist or product)
+                                    if (trulyNew.some(m => m.type === 'pharmacist' || m.type === 'product')) {
+                                        this.playNotificationSound();
+                                    }
+
                                     // Browser Notification if blurred
                                     if (!this.isTabFocused || !this.isOpen) {
                                         this.notifyNewMessage();
@@ -300,6 +310,15 @@
                 };
                 
                 this.pollTimeout = setTimeout(poll, this.pollInterval);
+            },
+            playNotificationSound() {
+                const audio = new Audio('/audio/notif-chat.mp3');
+                audio.currentTime = 0;
+                audio.play().catch(e => {
+                    if (e.name !== 'NotAllowedError') {
+                        console.error('Audio play failed:', e);
+                    }
+                });
             },
             notifyNewMessage() {
                 if ("Notification" in window && Notification.permission === "granted") {

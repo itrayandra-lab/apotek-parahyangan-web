@@ -12,7 +12,7 @@
             <div class="mb-8">
                 <p class="text-xs font-bold tracking-widest text-primary uppercase mb-2">Checkout</p>
                 <h1 class="text-4xl font-display font-medium text-gray-900">Konfirmasi Pesanan</h1>
-                <p class="text-gray-500 mt-2">Ambil langsung di Apotek Parahyangan PVJ Bandung</p>
+                <p class="text-gray-500 mt-2">Ambil langsung di Apotek Parahyangan Suite Gedung Soho Bandung</p>
             </div>
 
             @if (session('error'))
@@ -76,10 +76,10 @@
                                 <div>
                                     <h4 class="font-semibold text-blue-900 mb-1">Lokasi Pengambilan</h4>
                                     <p class="text-blue-800 text-sm mb-2">
-                                        <strong>Apotek Parahyangan</strong><br>
-                                        Paris Van Java Mall, Lantai Ground Floor<br>
-                                        Jl. Sukajadi No.131-139, Sukagalih, Sukajadi<br>
-                                        Kota Bandung, Jawa Barat 40162
+                                        <strong>Apotek Parahyangan Suite</strong><br>
+                                        Gedung Soho, Jl. Karang Tinggal No.5-7<br>
+                                        Cipedes, Kec. Sukajadi, Kota Bandung<br>
+                                        Jawa Barat 40162
                                     </p>
                                     <p class="text-blue-700 text-xs">
                                         <strong>Jam Operasional:</strong> Senin - Minggu, 10:00 - 22:00 WIB

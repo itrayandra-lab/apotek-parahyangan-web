@@ -15,31 +15,31 @@ class SiteSettingSeeder extends Seeder
         $settings = [
             [
                 'key' => 'social_media.instagram_url',
-                'value' => 'https://instagram.com/beautylatory',
+                'value' => 'https://instagram.com/Apotek Parahyangan Suite',
                 'group' => 'social_media',
                 'description' => 'Instagram Profile URL',
             ],
             [
                 'key' => 'social_media.facebook_url',
-                'value' => 'https://facebook.com/beautylatory',
+                'value' => 'https://facebook.com/Apotek Parahyangan Suite',
                 'group' => 'social_media',
                 'description' => 'Facebook Page URL',
             ],
             [
                 'key' => 'social_media.youtube_url',
-                'value' => 'https://youtube.com/@beautylatory',
+                'value' => 'https://youtube.com/@Apotek Parahyangan Suite',
                 'group' => 'social_media',
                 'description' => 'YouTube Channel URL',
             ],
             [
                 'key' => 'contact.support_email',
-                'value' => 'support@beautylatory.com',
+                'value' => 'support@Apotek Parahyangan Suite.com',
                 'group' => 'contact',
                 'description' => 'Customer Support Email',
             ],
             [
                 'key' => 'contact.newsletter_email',
-                'value' => 'newsletter@beautylatory.com',
+                'value' => 'newsletter@Apotek Parahyangan Suite.com',
                 'group' => 'contact',
                 'description' => 'Newsletter Subscription Email',
             ],
@@ -69,7 +69,7 @@ class SiteSettingSeeder extends Seeder
             ],
             [
                 'key' => 'general.site_name',
-                'value' => 'Beautylatory',
+                'value' => 'Apotek Parahyangan Suite',
                 'group' => 'general',
                 'description' => 'Site Name',
             ],

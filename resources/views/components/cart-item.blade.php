@@ -37,7 +37,7 @@
 
     <div class="flex-1 space-y-1">
         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-            {{ $displayCategory ?? ($isMedicine ? 'Farmasi' : 'Beautylatory') }}
+            {{ $displayCategory ?? ($isMedicine ? 'Farmasi' : 'Apotek Parahyangan Suite') }}
         </p>
         <h3 class="text-lg font-display text-gray-900 leading-tight">{{ $displayName ?? 'Produk tidak tersedia' }}</h3>
         <div class="flex items-center gap-3">

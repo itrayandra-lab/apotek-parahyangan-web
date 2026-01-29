@@ -220,7 +220,7 @@ class MigrateJsonData extends Command
                     'id' => $adminData['id'],
                     'name' => $adminData['username'],
                     'username' => $adminData['username'],
-                    'email' => $adminData['username'].'@beautylatory.local',
+                    'email' => $adminData['username'].'@Apotek Parahyangan Suite.local',
                     'password' => $adminData['password_hash'], // Already hashed
                     'role' => 'admin',
                     'created_at' => $adminData['created_at'],

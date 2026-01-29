@@ -11,7 +11,7 @@
             : $article->created_at->format('F j, Y');
     @endphp
 
-    <article class="pt-24 pb-20 min-h-screen bg-gray-50 relative overflow-hidden">
+    <article class="pb-20 min-h-screen bg-gray-50 relative overflow-hidden" style="padding-top: 180px;">
         {{-- Background Elements --}}
         <div class="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-rose-50/50 to-transparent pointer-events-none"></div>
         <div class="absolute top-[10%] right-[-5%] w-[500px] h-[500px] bg-rose-100/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -26,7 +26,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 19l-7-7 7-7"></path>
                         </svg>
-                        Back to Articles
+                        Kembali ke Artikel
                     </a>
                 </div>
 
@@ -51,7 +51,7 @@
                                 </svg>
                             </div>
                             <div class="text-left">
-                                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Written By</p>
+                                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Ditulis Oleh</p>
                                 <span
                                     class="text-sm font-bold text-gray-900 uppercase tracking-wider">{{ $article->display_author }}</span>
                             </div>
@@ -62,7 +62,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span class="text-sm font-medium uppercase tracking-wider">{{ $readingTime }} min read</span>
+                            <span class="text-sm font-medium uppercase tracking-wider">{{ $readingTime }} menit baca</span>
                         </div>
                         <div class="h-8 w-px bg-gray-200"></div>
                         <div class="flex items-center gap-3 text-gray-500">
@@ -70,7 +70,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                             </svg>
-                            <span class="text-sm font-medium uppercase tracking-wider">{{ number_format($article->views_count) }} views</span>
+                            <span class="text-sm font-medium uppercase tracking-wider">{{ number_format($article->views_count) }} dilihat</span>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
                             </div>
-                            <p class="text-xs font-bold tracking-widest text-rose-400 uppercase">Beautylatory Journal</p>
+                            <p class="text-xs font-bold tracking-widest text-rose-400 uppercase">Apotek Parahyangan Suite Journal</p>
                          </div>
                     </div>
                 @endif
@@ -128,7 +128,7 @@
                                 d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z">
                             </path>
                         </svg>
-                        Share Article
+                        Bagikan Artikel
                     </button>
                 </div>
             </div>
@@ -139,8 +139,8 @@
             <div class="container mx-auto px-6 md:px-8 mt-24 relative z-10">
                 <div class="max-w-7xl mx-auto">
                     <div class="text-center mb-12">
-                        <p class="text-xs font-bold tracking-[0.2em] uppercase text-primary mb-3">Continue Reading</p>
-                        <h2 class="text-4xl md:text-5xl font-display font-medium bg-gradient-to-r from-[#484A56] via-[#9C6C6D] via-[#B58687] to-[#7A5657] bg-clip-text text-transparent uppercase">Related Articles</h2>
+                        <p class="text-xs font-bold tracking-[0.2em] uppercase text-primary mb-3">Lanjutkan Membaca</p>
+                        <h2 class="text-4xl md:text-5xl font-display font-medium bg-gradient-to-r from-[#484A56] via-[#9C6C6D] via-[#B58687] to-[#7A5657] bg-clip-text text-transparent uppercase">Artikel Terkait</h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         @foreach ($relatedArticles as $index => $relatedArticle)

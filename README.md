@@ -1,4 +1,4 @@
-# Beautylatory
+# Apotek Parahyangan Suite
 
 Premium e-commerce platform for skincare products with AI chatbot integration. Built with Laravel 12, Alpine.js, and Tailwind CSS v4.
 
@@ -61,7 +61,7 @@ Premium e-commerce platform for skincare products with AI chatbot integration. B
 1. Clone the repository
 ```bash
 git clone <repository-url>
-cd beautylatory_laravel
+cd Apotek Parahyangan Suite_laravel
 ```
 
 2. Install dependencies

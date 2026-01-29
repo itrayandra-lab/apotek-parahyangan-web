@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin Login - Beautylatory</title>
+    <title>Admin Login - Apotek Parahyangan Suite</title>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
@@ -14,7 +14,7 @@
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <img src="{{ asset('images/asset-logo.png') }}" alt="Beautylatory Logo" class="login-logo">
+                <img src="{{ asset('images/asset-logo.png') }}" alt="Apotek Parahyangan Suite Logo" class="login-logo">
                 <h1 class="login-title">Admin Panel</h1>
                 <p class="login-subtitle">Please sign in to continue</p>
             </div>

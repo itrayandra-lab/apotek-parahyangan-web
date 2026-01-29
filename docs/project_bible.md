@@ -1,8 +1,8 @@
-# Project Bible - Beautylatory
+# Project Bible - Apotek Parahyangan Suite
 
 ## Project Identity
 
--   **Name**: Beautylatory
+-   **Name**: Apotek Parahyangan Suite
 -   **Core Value**: E-commerce skincare platform with AI chatbot integration
 -   **Persona**: Premium beauty brand with scientific/biotech approach
 

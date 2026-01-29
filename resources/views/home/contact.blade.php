@@ -1,6 +1,6 @@
 @php
-    $siteName = \App\Models\SiteSetting::getValue('general.site_name', 'Beautylatory');
-    $supportEmail = \App\Models\SiteSetting::getValue('contact.support_email', 'support@beautylatory.com');
+    $siteName = \App\Models\SiteSetting::getValue('general.site_name', 'Apotek Parahyangan Suite');
+    $supportEmail = \App\Models\SiteSetting::getValue('contact.support_email', 'support@Apotek Parahyangan Suite.com');
     $contactPhone = \App\Models\SiteSetting::getValue('contact.phone', '');
     $businessAddress = \App\Models\SiteSetting::getValue('contact.address', '');
     $businessHours = \App\Models\SiteSetting::getValue('contact.business_hours', 'Senin - Jumat: 09:00 - 17:00 WIB');
@@ -12,7 +12,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'Contact - ' . $siteName)
+@section('title', 'Hubungi Kami - ' . $siteName)
 
 @section('styles')
 <style>
@@ -33,7 +33,7 @@
 @endsection
 
 @section('content')
-    <div class="pt-32 pb-24 min-h-screen bg-gray-50 relative overflow-hidden">
+    <div class="pb-24 min-h-screen bg-gray-50 relative overflow-hidden" style="padding-top: 180px;">
         {{-- Background Elements --}}
         <div class="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-rose-50/50 to-transparent pointer-events-none"></div>
         <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-rose-100/30 rounded-full blur-3xl pointer-events-none animate-slow-spin"></div>
@@ -44,12 +44,12 @@
 
             {{-- Page Header --}}
             <div class="max-w-4xl mx-auto text-center mb-16">
-                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block animate-fade-in-up contact-delay-100">Get In Touch</span>
+                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block animate-fade-in-up contact-delay-100">Hubungi Kami</span>
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-medium bg-gradient-to-r from-[#484A56] via-[#9C6C6D] to-[#7A5657] bg-clip-text text-transparent uppercase leading-[1.1] mb-6 animate-fade-in-up contact-delay-200">
-                    CONTACT US
+                    HUBUNGI KAMI
                 </h1>
                 <p class="text-lg md:text-xl text-gray-600 font-light leading-relaxed max-w-2xl mx-auto animate-fade-in-up contact-delay-300">
-                    Have questions or need assistance? Our team is here to help you with anything you need.
+                    Punya pertanyaan atau butuh bantuan? Tim kami siap membantu Anda dengan apa pun yang Anda butuhkan.
                 </p>
             </div>
 
@@ -64,8 +64,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h2 class="text-xl font-display font-medium text-gray-900">Send a Message</h2>
-                                <p class="text-sm text-gray-500">We'll respond within 24 hours</p>
+                                <h2 class="text-xl font-display font-medium text-gray-900">Kirim Pesan</h2>
+                                <p class="text-sm text-gray-500">Kami akan membalas dalam waktu 24 jam</p>
                             </div>
                         </div>
 
@@ -85,64 +85,64 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label for="name" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
-                                            Name <span class="text-primary">*</span>
-                                        </label>
-                                        <input type="text" id="name" name="name" value="{{ old('name') }}"
-                                               class="w-full px-5 py-4 bg-gray-50 border-0 rounded-2xl text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all @error('name') ring-2 ring-rose-300 @enderror"
-                                               placeholder="Your full name" required>
-                                        @error('name')
-                                            <p class="mt-2 text-xs text-rose-500">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                    <div>
-                                        <label for="email" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
-                                            Email <span class="text-primary">*</span>
-                                        </label>
-                                        <input type="email" id="email" name="email" value="{{ old('email') }}"
-                                               class="w-full px-5 py-4 bg-gray-50 border-0 rounded-2xl text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all @error('email') ring-2 ring-rose-300 @enderror"
-                                               placeholder="email@example.com" required>
-                                        @error('email')
-                                            <p class="mt-2 text-xs text-rose-500">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                {{-- Subject --}}
-                                <div>
-                                    <label for="subject" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
-                                        Subject <span class="text-primary">*</span>
+                                        Nama <span class="text-primary">*</span>
                                     </label>
-                                    <input type="text" id="subject" name="subject" value="{{ old('subject') }}"
-                                           class="w-full px-5 py-4 bg-gray-50 border-0 rounded-2xl text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all @error('subject') ring-2 ring-rose-300 @enderror"
-                                           placeholder="What is this about?" required>
-                                    @error('subject')
+                                    <input type="text" id="name" name="name" value="{{ old('name') }}"
+                                           class="w-full px-5 py-4 bg-gray-50 border-0 rounded-2xl text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all @error('name') ring-2 ring-rose-300 @enderror"
+                                           placeholder="Nama lengkap Anda" required>
+                                    @error('name')
                                         <p class="mt-2 text-xs text-rose-500">{{ $message }}</p>
                                     @enderror
                                 </div>
-
-                                {{-- Message --}}
                                 <div>
-                                    <label for="message" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
-                                        Message <span class="text-primary">*</span>
+                                    <label for="email" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
+                                        Email <span class="text-primary">*</span>
                                     </label>
-                                    <textarea id="message" name="message" rows="5"
-                                              class="w-full px-5 py-4 bg-gray-50 border-0 rounded-2xl text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all resize-none @error('message') ring-2 ring-rose-300 @enderror"
-                                              placeholder="Write your message here..." required>{{ old('message') }}</textarea>
-                                    @error('message')
+                                    <input type="email" id="email" name="email" value="{{ old('email') }}"
+                                           class="w-full px-5 py-4 bg-gray-50 border-0 rounded-2xl text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all @error('email') ring-2 ring-rose-300 @enderror"
+                                           placeholder="email@contoh.com" required>
+                                    @error('email')
                                         <p class="mt-2 text-xs text-rose-500">{{ $message }}</p>
                                     @enderror
                                 </div>
+                            </div>
 
-                                {{-- Submit Button --}}
-                                <button type="submit" :disabled="loading"
-                                        class="group relative w-full inline-flex items-center justify-center px-8 py-4 overflow-hidden font-bold text-white transition-all duration-300 bg-gray-900 rounded-full hover:bg-primary hover:shadow-lg hover:shadow-primary/30 focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed">
-                                    <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-80 group-hover:h-80 opacity-10"></span>
-                                    <span class="relative flex items-center gap-3 text-xs tracking-widest uppercase">
-                                        <svg x-show="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                                        </svg>
-                                        <span x-text="loading ? 'Sending...' : 'Send Message'"></span>
+                            {{-- Subject --}}
+                            <div>
+                                <label for="subject" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
+                                    Subjek <span class="text-primary">*</span>
+                                </label>
+                                <input type="text" id="subject" name="subject" value="{{ old('subject') }}"
+                                       class="w-full px-5 py-4 bg-gray-50 border-0 rounded-2xl text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all @error('subject') ring-2 ring-rose-300 @enderror"
+                                       placeholder="Tentang apa pesan ini?" required>
+                                @error('subject')
+                                    <p class="mt-2 text-xs text-rose-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            {{-- Message --}}
+                            <div>
+                                <label for="message" class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
+                                    Pesan <span class="text-primary">*</span>
+                                </label>
+                                <textarea id="message" name="message" rows="5"
+                                          class="w-full px-5 py-4 bg-gray-50 border-0 rounded-2xl text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all resize-none @error('message') ring-2 ring-rose-300 @enderror"
+                                          placeholder="Tuliskan pesan Anda di sini..." required>{{ old('message') }}</textarea>
+                                @error('message')
+                                    <p class="mt-2 text-xs text-rose-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            {{-- Submit Button --}}
+                            <button type="submit" :disabled="loading"
+                                    class="group relative w-full inline-flex items-center justify-center px-8 py-4 overflow-hidden font-bold text-white transition-all duration-300 bg-gray-900 rounded-full hover:bg-primary hover:shadow-lg hover:shadow-primary/30 focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed">
+                                <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-80 group-hover:h-80 opacity-10"></span>
+                                <span class="relative flex items-center gap-3 text-xs tracking-widest uppercase">
+                                    <svg x-show="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                                    </svg>
+                                    <span x-text="loading ? 'Mengirim...' : 'Kirim Pesan'"></span>
                                         <svg x-show="!loading" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                         </svg>
@@ -157,7 +157,7 @@
                 <div class="lg:col-span-2 space-y-6 animate-fade-in-up contact-delay-500">
                     {{-- Contact Details Card --}}
                     <div class="glass-panel p-8 rounded-[2rem]">
-                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Contact Information</h3>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Informasi Kontak</h3>
                         <div class="space-y-6">
                             {{-- Email --}}
                             <a href="mailto:{{ $supportEmail }}" class="flex items-start gap-4 group">
@@ -197,7 +197,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Address</p>
+                                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Alamat</p>
                                     <p class="text-gray-900">{{ $businessAddress }}</p>
                                 </div>
                             </div>
@@ -212,7 +212,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Business Hours</p>
+                                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Jam Operasional</p>
                                     <p class="text-gray-900">{{ $businessHours }}</p>
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
                     {{-- Social Links Card --}}
                     @if($instagramUrl || $facebookUrl || $youtubeUrl)
                     <div class="glass-panel p-8 rounded-[2rem]">
-                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Follow Us</h3>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Ikuti Kami</h3>
                         <div class="flex gap-4">
                             @if($instagramUrl)
                             <a href="{{ $instagramUrl }}" target="_blank" rel="noopener noreferrer"

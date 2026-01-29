@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Beautylatory</title>
+    <title>Login - Apotek Parahyangan Suite</title>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full font-sans text-gray-900 antialiased bg-[url('/images/bg-pattern.png')] bg-repeat">
     <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md animate-fade-in-up">
-            <img class="mx-auto h-12 w-auto" src="{{ asset('images/asset-logo.png') }}" alt="Beautylatory">
+            <img class="mx-auto h-12 w-auto" src="{{ asset('images/asset-logo.png') }}" alt="Apotek Parahyangan Suite">
             <h2 class="mt-6 text-center text-3xl font-display font-medium tracking-tight text-gray-900">Welcome Back</h2>
             <p class="mt-2 text-center text-sm text-gray-600">
                 Please sign in to continue
@@ -77,7 +77,7 @@
                             <div class="w-full border-t border-gray-200"></div>
                         </div>
                         <div class="relative flex justify-center text-sm">
-                            <span class="bg-white px-2 text-gray-500 rounded-full">New to Beautylatory?</span>
+                            <span class="bg-white px-2 text-gray-500 rounded-full">New to Apotek Parahyangan Suite?</span>
                         </div>
                     </div>
 

@@ -1,7 +1,7 @@
-# Beautylatory - Project Context
+# Apotek Parahyangan Suite - Project Context
 
 ## 1. Project Overview
-**Beautylatory** is a Laravel 12-based e-commerce and content platform for beauty products. It features a dual-interface system: a public storefront for customers to browse products and articles, and a secure admin panel for content management.
+**Apotek Parahyangan Suite** is a Laravel 12-based e-commerce and content platform for beauty products. It features a dual-interface system: a public storefront for customers to browse products and articles, and a secure admin panel for content management.
 
 *   **Core Purpose:** Showcase beauty products and educational articles.
 *   **Key Features:** Role-based authentication (Admin/User), Product Catalog with categories & discounts, Blog/Article system with Rich Text & Scheduling, Homepage Slider, Glassmorphism UI.

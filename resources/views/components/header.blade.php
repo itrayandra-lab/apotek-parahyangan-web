@@ -34,8 +34,8 @@
     x-init="init()"
 >
     <header
-        :class="(isScrolled && !isMobileMenuOpen ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100' : 'bg-transparent') + ' ' + (isScrolled ? 'py-3' : 'py-5') + ' ' + ((isScrolled || isMobileMenuOpen) ? 'text-gray-900' : 'text-white')"
-        class="sticky top-0 left-0 w-full z-50 transition-all duration-300"
+        :class="(isScrolled && !isMobileMenuOpen ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100' : 'bg-white border-b border-gray-100') + ' ' + (isScrolled ? 'py-3' : 'py-4') + ' text-gray-900'"
+        class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
     >
         <div class="container mx-auto px-6 md:px-8">
             <div class="flex items-center justify-between">
@@ -46,10 +46,9 @@
                     class="flex items-center gap-2 group"
                 >
                     <img
-                        src="{{ asset('images/logo-beautylatory.png') }}"
-                        alt="Beautylatory"
-                        class="h-6 md:h-8 w-auto object-contain transition-all duration-500"
-                        :class="(isScrolled || isMobileMenuOpen) ? 'brightness-100 invert-0' : 'brightness-0 invert'"
+                        src="{{ asset('images/Logo-apotek-parahyangan-suite.png') }}"
+                        alt="Apotek Parahyangan Suite"
+                        class="h-16 md:h-24 w-auto object-contain transition-all duration-500 brightness-100 invert-0"
                     >
                 </a>
 
@@ -57,31 +56,21 @@
                 <nav class="hidden lg:flex items-center gap-8">
                     <a
                         href="{{ url('/') }}"
-                        class="text-xs font-medium tracking-widest transition-colors uppercase"
-                        :class="(isScrolled || isMobileMenuOpen) ? 'text-gray-700 hover:text-primary' : 'text-white hover:text-white/80'"
+                        class="text-xs font-medium tracking-widest transition-colors uppercase text-gray-700 hover:text-primary"
                     >
                         Home
                     </a>
                     <a
                         href="{{ route('products.index') }}"
-                        class="text-xs font-medium tracking-widest transition-colors uppercase"
-                        :class="(isScrolled || isMobileMenuOpen) ? 'text-gray-700 hover:text-primary' : 'text-white hover:text-white/80'"
+                        class="text-xs font-medium tracking-widest transition-colors uppercase text-gray-700 hover:text-primary"
                     >
                         Shop
                     </a>
                     <a
                         href="{{ route('articles.index') }}"
-                        class="text-xs font-medium tracking-widest transition-colors uppercase"
-                        :class="(isScrolled || isMobileMenuOpen) ? 'text-gray-700 hover:text-primary' : 'text-white hover:text-white/80'"
+                        class="text-xs font-medium tracking-widest transition-colors uppercase text-gray-700 hover:text-primary"
                     >
                         Articles
-                    </a>
-                    <a
-                        href="#!"
-                        class="text-xs font-medium tracking-widest transition-colors uppercase"
-                        :class="(isScrolled || isMobileMenuOpen) ? 'text-gray-700 hover:text-primary' : 'text-white hover:text-white/80'"
-                    >
-                        AI Analysis
                     </a>
                 </nav>
 
@@ -145,8 +134,7 @@
                             @csrf
                             <button type="submit" class="p-2 hover:bg-primary/10 rounded-full transition-colors group" title="Logout">
                                 <svg
-                                    class="w-5 h-5 group-hover:text-primary transition-colors"
-                                    :class="(isScrolled || isMobileMenuOpen) ? 'text-gray-700' : 'text-white'"
+                                    class="w-5 h-5 group-hover:text-primary transition-colors text-gray-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -182,8 +170,7 @@
                     >
                         <svg
                             x-show="!isMobileMenuOpen"
-                            class="w-6 h-6 transition-colors"
-                            :class="(isScrolled || isMobileMenuOpen) ? 'text-gray-900' : 'text-white'"
+                            class="w-6 h-6 transition-colors text-gray-900"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -193,8 +180,7 @@
                         <svg
                             x-show="isMobileMenuOpen"
                             x-cloak
-                            class="w-6 h-6 transition-colors"
-                            :class="(isScrolled || isMobileMenuOpen) ? 'text-gray-900' : 'text-white'"
+                            class="w-6 h-6 transition-colors text-gray-900"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -272,17 +258,6 @@
             >
                 Collection
             </a>
-            <a
-                href="#ai-analysis"
-                @click="isMobileMenuOpen = false"
-                class="text-3xl font-display font-medium text-gray-900 hover:text-primary transition-colors"
-                x-show="isMobileMenuOpen"
-                x-transition:enter="transition ease-out duration-500 delay-400"
-                x-transition:enter-start="translate-x-10 opacity-0"
-                x-transition:enter-end="translate-x-0 opacity-100"
-            >
-                AI Analysis
-            </a>
             @if(!$isLoggedIn)
             <a
                 href="{{ route('login') }}"
@@ -339,7 +314,7 @@
         
         {{-- Mobile Footer Info --}}
         <div class="p-8 border-t border-gray-100">
-             <p class="text-xs text-gray-400 uppercase tracking-widest">© 2024 Beautylatory</p>
+             <p class="text-xs text-gray-400 uppercase tracking-widest">© 2024 Apotek Parahyangan Suite</p>
         </div>
     </div>
 </div>

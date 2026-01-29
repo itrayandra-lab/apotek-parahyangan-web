@@ -16,7 +16,7 @@ class NewOrderNotificationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[Beautylatory] Order Baru #'.$this->order->order_number.' - Rp '.number_format($this->order->total, 0, ',', '.'),
+            subject: '[Apotek Parahyangan Suite] Order Baru #'.$this->order->order_number.' - Rp '.number_format($this->order->total, 0, ',', '.'),
         );
     }
 

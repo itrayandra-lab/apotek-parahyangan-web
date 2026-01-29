@@ -29,7 +29,7 @@
                         <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-bold uppercase tracking-widest">Dibuat: {{ $prescriptionOrder->created_at->format('d/m/Y') }}</span>
                     </div>
                     <div class="mt-8 bg-rose-50 border border-rose-100 rounded-xl p-4">
-                        <p class="text-rose-800 text-sm font-medium">Sebutkan Nomor Invoice di atas kepada petugas Apotek PVJ saat pengambilan obat.</p>
+                        <p class="text-rose-800 text-sm font-medium">Sebutkan Nomor Invoice di atas kepada petugas Apotek Parahyangan Suite (Gedung Soho) saat pengambilan obat.</p>
                     </div>
                 </div>
 
@@ -99,10 +99,10 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900">Apotek Parahyangan - PVJ Bandung</h4>
-                                <p class="text-sm text-gray-600">Paris Van Java Mall, Glamour Level</p>
-                                <p class="text-sm text-gray-600">Jl. Sukajadi No.137-139, Bandung</p>
-                                <a href="https://maps.google.com/?q=Paris+Van+Java" target="_blank" class="text-xs font-bold text-rose-500 uppercase mt-2 inline-block hover:underline">Buka Maps →</a>
+                                <h4 class="font-bold text-gray-900">Apotek Parahyangan Suite - Gedung Soho</h4>
+                                <p class="text-sm text-gray-600">Gedung Soho, Jl. Karang Tinggal No.5-7</p>
+                                <p class="text-sm text-gray-600">Cipedes, Kec. Sukajadi, Kota Bandung 40162</p>
+                                <a href="https://maps.app.goo.gl/rM9fXj9YQ9m9zY6V7" target="_blank" class="text-xs font-bold text-rose-500 uppercase mt-2 inline-block hover:underline">Buka Maps →</a>
                             </div>
                         </div>
 

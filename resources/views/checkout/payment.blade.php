@@ -7,7 +7,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'Pembayaran - Beautylatory')
+@section('title', 'Pembayaran - Apotek Parahyangan Suite')
 
 @section('content')
     <div class="pt-28 pb-20 bg-gray-50 min-h-screen">
@@ -53,8 +53,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
                         <div>
                             <p class="text-gray-500 text-xs uppercase tracking-widest mb-1">Lokasi Pengambilan</p>
-                            <p class="font-medium text-gray-900">Apotek Parahyangan PVJ</p>
-                            <p class="text-gray-600">Paris Van Java Mall, Bandung</p>
+                            <p class="font-medium text-gray-900">Apotek Parahyangan Suite - Gedung Soho</p>
+                            <p class="text-gray-600">Gedung Soho, Jl. Karang Tinggal No.5-7, Bandung 40162</p>
                         </div>
                         <div>
                             <p class="text-gray-500 text-xs uppercase tracking-widest mb-1">Kontak</p>
@@ -96,7 +96,7 @@
                             @endif
                             <li class="flex items-start gap-3">
                                 <span class="flex-shrink-0 w-6 h-6 bg-blue-200 text-blue-800 rounded-full flex items-center justify-center font-bold text-xs mt-0.5">{{ ($order instanceof \App\Models\PrescriptionOrder || $order->prescription_id) ? '3' : '2' }}</span>
-                                <p>Lakukan pembayaran di kasir <strong>Apotek Parahyangan - PVJ Bandung</strong> (Paris Van Java Mall, Lantai Dasar/GF).</p>
+                                <p>Lakukan pembayaran di kasir <strong>Apotek Parahyangan Suite - Gedung Soho</strong> (Gedung Soho, Jl. Karang Tinggal No.5-7, Bandung 40162).</p>
                             </li>
                         </ul>
                     </div>

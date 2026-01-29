@@ -16,6 +16,7 @@ class ChatMessage extends Model
         'type',
         'content',
         'metadata',
+        'is_read_by_admin',
         'sent_at',
     ];
 
@@ -24,7 +25,14 @@ class ChatMessage extends Model
         return [
             'sent_at' => 'datetime',
             'metadata' => 'array',
+            'is_read_by_admin' => 'boolean',
         ];
+    }
+
+    public function scopeUnreadByAdmin($query)
+    {
+        return $query->where('is_read_by_admin', false)
+            ->whereIn('type', ['user', 'bot']); // Bots might trigger unread if we want admin to review bot interactions
     }
 
     public function chatSession(): BelongsTo

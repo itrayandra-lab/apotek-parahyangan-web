@@ -13,7 +13,7 @@
                 </div>
             @else
                 <div class="w-full h-full bg-gray-50 flex items-center justify-center">
-                    <span class="text-gray-300 text-xs font-bold tracking-widest uppercase">No Image</span>
+                    <span class="text-gray-300 text-xs font-bold tracking-widest uppercase">Tanpa Gambar</span>
                 </div>
             @endif
 
@@ -34,7 +34,7 @@
         @if ($product->discount_price && $product->discount_price < $product->price)
             <div class="absolute top-6 right-6 z-10">
                 <span class="bg-primary text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase shadow-lg shadow-primary/30">
-                    {{ round((($product->price - $product->discount_price) / $product->price) * 100) }}% OFF
+                    DISKON {{ round((($product->price - $product->discount_price) / $product->price) * 100) }}%
                 </span>
             </div>
         @endif
@@ -42,7 +42,7 @@
         {{-- Quick Action --}}
         <div class="absolute bottom-6 left-0 right-0 px-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
             <button class="w-full bg-white/90 backdrop-blur text-gray-900 py-3 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg hover:bg-primary hover:text-white transition-colors">
-                View Details
+                Lihat Detail
             </button>
         </div>
     </div>

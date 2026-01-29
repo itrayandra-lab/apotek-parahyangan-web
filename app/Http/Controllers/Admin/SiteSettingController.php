@@ -50,9 +50,9 @@ class SiteSettingController extends Controller
         ]);
 
         try {
-            Mail::raw('This is a test email from Beautylatory Site Settings.', function ($message) use ($validated): void {
+            Mail::raw('This is a test email from Apotek Parahyangan Suite Site Settings.', function ($message) use ($validated): void {
                 $message->to($validated['email'])
-                    ->subject('Test Email - Beautylatory');
+                    ->subject('Test Email - Apotek Parahyangan Suite');
             });
 
             return response()->json([

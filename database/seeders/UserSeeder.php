@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Admin User',
             'username' => 'admin',
-            'email' => 'admin@beautylatory.local',
+            'email' => 'admin@Apotek Parahyangan Suite.local',
             'password' => Hash::make('password'),
             'role' => 'admin',
             'email_verified_at' => now(),
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Content Manager',
             'username' => 'content',
-            'email' => 'content@beautylatory.local',
+            'email' => 'content@Apotek Parahyangan Suite.local',
             'password' => Hash::make('password'),
             'role' => 'content_manager',
             'email_verified_at' => now(),
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Customer User',
             'username' => 'customer',
-            'email' => 'customer@beautylatory.local',
+            'email' => 'customer@Apotek Parahyangan Suite.local',
             'password' => Hash::make('password'),
             'role' => 'user',
             'email_verified_at' => now(),

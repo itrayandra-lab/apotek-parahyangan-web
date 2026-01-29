@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ArticleCategoryController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\ChatbotSettingsController;
+use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ExpertQuoteController as AdminExpertQuoteController;
 use App\Http\Controllers\Admin\MedicineController as AdminMedicineController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
@@ -174,6 +175,14 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
         Route::patch('orders/{order}/update-prescription-status', [AdminOrderController::class, 'updatePrescriptionStatus'])->name('orders.update-prescription-status');
         Route::post('order-items/{item}/reject', [AdminOrderController::class, 'rejectItem'])->name('order-items.reject');
         Route::post('orders/{order}/sync-total', [AdminOrderController::class, 'syncTotal'])->name('orders.sync-total');
+
+        // Chat Management
+        Route::get('chats', [ChatController::class, 'index'])->name('chats.index');
+        Route::get('chats/{chat_session}', [ChatController::class, 'show'])->name('chats.show');
+        Route::post('chats/{chat_session}/reply', [ChatController::class, 'reply'])->name('chats.reply');
+        Route::get('api/chats/{chat_session}/sync', [ChatController::class, 'sync'])->name('chats.sync');
+        Route::get('api/chats/search-products', [ChatController::class, 'searchProducts'])->name('chats.search-products');
+        Route::get('api/chats/unread-counts', [ChatController::class, 'unreadCounts'])->name('api.chats.unread-counts');
 
         Route::get('chatbot-settings', [ChatbotSettingsController::class, 'index'])->name('chatbot.settings');
         Route::post('chatbot-settings', [ChatbotSettingsController::class, 'update'])->name('chatbot.settings.update');

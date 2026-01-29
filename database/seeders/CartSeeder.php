@@ -15,11 +15,11 @@ class CartSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::where('email', 'customer@beautylatory.local')->first();
+        $user = User::where('email', 'customer@Apotek Parahyangan Suite.local')->first();
 
         if (! $user) {
             $user = User::factory()->create([
-                'email' => 'customer@beautylatory.local',
+                'email' => 'customer@Apotek Parahyangan Suite.local',
                 'username' => 'cart_customer',
                 'role' => 'user',
             ]);

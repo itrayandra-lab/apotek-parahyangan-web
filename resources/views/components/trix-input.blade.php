@@ -3,7 +3,7 @@
 @once
 @push('styles')
 <style>
-    /* Beautylatory Trix Theme - Rose & Glass Morphism */
+    /* Apotek Parahyangan Suite Trix Theme - Rose & Glass Morphism */
     trix-toolbar .trix-button--icon {
         color: #525252;
     }

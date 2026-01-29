@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Articles - Beautylatory')
+@section('title', 'Jurnal Kesehatan - Apotek Parahyangan Suite')
 
 @section('styles')
 <style>
@@ -29,7 +29,7 @@
 @endsection
 
 @section('content')
-    <div class="pt-12 pb-24 min-h-screen bg-gray-50 relative overflow-hidden">
+    <div class="pb-24 min-h-screen bg-gray-50 relative overflow-hidden" style="padding-top: 180px;">
         {{-- Background Elements --}}
         <div class="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-rose-50/50 to-transparent pointer-events-none"></div>
         <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-rose-100/30 rounded-full blur-3xl pointer-events-none animate-slow-spin"></div>
@@ -40,12 +40,12 @@
 
             {{-- Page Header --}}
             <div class="max-w-4xl mx-auto text-center mb-12">
-                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block animate-fade-in-up delay-100">Articles</span>
+                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block animate-fade-in-up delay-100">Info & Edukasi</span>
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-medium bg-gradient-to-r from-[#484A56] via-[#9C6C6D] via-[#B58687] to-[#7A5657] bg-clip-text text-transparent uppercase leading-[1.1] mb-6 animate-fade-in-up delay-200">
-                    SKIN TALKS
+                    JURNAL SEHAT
                 </h1>
                 <p class="text-lg md:text-xl text-gray-600 font-light leading-relaxed max-w-2xl mx-auto animate-fade-in-up delay-300">
-                    Discover expert tips, science-backed beauty insights, and the latest trends in skincare
+                    Perkaya wawasan Anda dengan tips kesehatan, panduan obat, dan informasi gaya hidup sehat dari tim ahli farmasi kami.
                 </p>
             </div>
 
@@ -64,7 +64,7 @@
                         <input type="text"
                                name="search"
                                value="{{ $searchQuery ?? '' }}"
-                               placeholder="Search articles, tips, or topics..."
+                               placeholder="Cari artikel, tips, atau topik kesehatan..."
                                class="block w-full pl-14 pr-32 py-4 bg-white border-0 rounded-full text-gray-900 placeholder-gray-400 shadow-lg shadow-gray-100 focus:ring-2 focus:ring-primary/20 focus:shadow-xl transition-all duration-300">
                         <div class="absolute inset-y-0 right-2 flex items-center">
                             @if(request('search'))
@@ -78,15 +78,15 @@
                             @endif
                             <button type="submit"
                                     class="px-6 py-2 bg-gray-900 hover:bg-primary text-white rounded-full text-xs font-bold tracking-widest uppercase transition-all duration-300">
-                                Search
+                                Cari
                             </button>
                         </div>
                     </div>
                 </form>
                 @if(request('search'))
                     <p class="text-center text-sm text-gray-500 mt-4">
-                        Showing results for "<span class="font-medium text-gray-700">{{ request('search') }}</span>"
-                        <span class="text-gray-400">({{ $articles->total() }} {{ Str::plural('article', $articles->total()) }} found)</span>
+                        Menampilkan hasil untuk "<span class="font-medium text-gray-700">{{ request('search') }}</span>"
+                        <span class="text-gray-400">({{ $articles->total() }} artikel ditemukan)</span>
                     </p>
                 @endif
             </div>
@@ -94,7 +94,7 @@
             {{-- Category Filter Section with Horizontal Scroll --}}
             @if($categories->isNotEmpty())
                 <div class="mb-16 animate-fade-in-up delay-400" x-data="{ scrollContainer: null }" x-init="scrollContainer = $refs.categoryScroll">
-                    <div class="relative max-w-5xl mx-auto px-4 md:px-12">
+                    <div class="relative mx-auto px-4 md:px-12">
                         {{-- Left Arrow --}}
                         <button @click="scrollContainer?.scrollBy({ left: -300, behavior: 'smooth' })"
                                 class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full glass-panel hover:bg-white text-gray-600 hover:text-gray-900 transition-all duration-300 hidden md:flex items-center justify-center shadow-lg">
@@ -110,7 +110,7 @@
                                       {{ !request('category')
                                           ? 'bg-gray-900 text-white border-gray-900 shadow-lg shadow-gray-900/20 transform scale-105'
                                           : 'bg-white border-gray-200 text-gray-500 hover:border-primary hover:text-primary hover:-translate-y-1' }}">
-                                All Articles
+                                Semua Artikel
                             </a>
                             @foreach($categories as $category)
                                 <a href="{{ route('articles.index', ['category' => $category->slug]) }}"
@@ -158,7 +158,7 @@
                                         <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                         </svg>
-                                        <span class="text-white font-bold text-sm tracking-widest uppercase">Featured</span>
+                                        <span class="text-white font-bold text-sm tracking-widest uppercase">Unggulan</span>
                                     </div>
                                 </div>
 
@@ -197,7 +197,7 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                                 </svg>
-                                                <span>{{ number_format($featuredArticle->views_count) }} views</span>
+                                                <span>{{ number_format($featuredArticle->views_count) }} dilihat</span>
                                             </div>
                                         </div>
 
@@ -226,7 +226,7 @@
 
                                         {{-- Read More CTA --}}
                                         <div class="inline-flex items-center gap-3 text-white font-bold text-sm tracking-widest uppercase group-hover:gap-5 transition-all">
-                                            Read Full Article
+                                            Baca Selengkapnya
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                             </svg>
@@ -253,10 +253,10 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-display font-medium bg-gradient-to-r from-[#484A56] via-[#9C6C6D] via-[#B58687] to-[#7A5657] bg-clip-text text-transparent uppercase mb-2">NO ARTICLES FOUND</h3>
-                        <p class="text-gray-500 font-light mb-8">We couldn't find any articles matching your selection.</p>
+                        <h3 class="text-2xl font-display font-medium bg-gradient-to-r from-[#484A56] via-[#9C6C6D] via-[#B58687] to-[#7A5657] bg-clip-text text-transparent uppercase mb-2">ARTIKEL TIDAK DITEMUKAN</h3>
+                        <p class="text-gray-500 font-light mb-8">Kami tidak dapat menemukan artikel yang sesuai dengan kriteria pencarian Anda.</p>
                         <a href="{{ route('articles.index') }}" class="inline-flex items-center gap-2 text-primary font-bold tracking-widest uppercase text-xs border-b border-primary pb-1 hover:text-rose-600 hover:border-rose-600 transition-colors">
-                            View All Articles
+                            Lihat Semua Artikel
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                             </svg>
@@ -291,7 +291,7 @@
             {{-- End of Articles Message --}}
             <template x-if="!hasMorePages && ajaxArticles.length > 0">
                 <div class="col-span-full text-center py-12 animate-fade-in-up">
-                    <p class="text-gray-400 text-xs font-bold tracking-widest uppercase">You've reached the end</p>
+                    <p class="text-gray-400 text-xs font-bold tracking-widest uppercase">Semua artikel telah ditampilkan</p>
                 </div>
             </template>
         </div>

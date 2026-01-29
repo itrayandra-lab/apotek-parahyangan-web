@@ -42,6 +42,11 @@ class ChatSession extends Model
         return $this->hasMany(ChatMessage::class);
     }
 
+    public function unreadMessages(): HasMany
+    {
+        return $this->hasMany(ChatMessage::class)->unreadByAdmin();
+    }
+
     public function isActive(): bool
     {
         return $this->status === 'active';

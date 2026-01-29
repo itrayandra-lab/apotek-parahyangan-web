@@ -201,7 +201,7 @@ class PrescriptionAdminController extends Controller
         $message .= "Lihat detail lengkap dan lakukan pembayaran di sini:\n";
         $message .= "{$orderUrl}\n\n";
         $message .= "Setelah pembayaran, Anda dapat mengambil obat di:\n";
-        $message .= "📍 Apotek Parahyangan - PVJ Bandung\n\n";
+        $message .= "📍 Apotek Parahyangan Suite - Gedung Soho\n\n";
         $message .= "⚠️ PENTING: Bawa resep fisik asli saat pengambilan obat.\n\n";
         $message .= "Terima kasih! 🙏";
 

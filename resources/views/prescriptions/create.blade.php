@@ -32,7 +32,7 @@
                         <svg class="w-5 h-5 text-rose-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
-                        <span>Pengambilan hanya di <strong>Apotek Parahyangan - PVJ Bandung</strong></span>
+                        <span>Pengambilan hanya di <strong>Apotek Parahyangan - Gedung Soho</strong></span>
                     </li>
                     <li class="flex items-start gap-2">
                         <svg class="w-5 h-5 text-rose-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

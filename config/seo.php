@@ -4,7 +4,7 @@ return [
     /**
      * Use this setting to specify the site name that will be used in OpenGraph tags.
      */
-    'site_name' => 'Beautylatory',
+    'site_name' => 'Apotek Parahyangan Suite',
 
     /**
      * Use this setting to specify the path to the sitemap of your website. This exact path will outputted, so
@@ -67,14 +67,14 @@ return [
          * Use this setting to provide a suffix that will be added after the title on each page.
          * If you don't want a suffix, you should specify an empty string.
          */
-        'suffix' => ' - Beautylatory',
+        'suffix' => ' - Apotek Parahyangan Suite',
 
         /**
          * Use this setting to provide a custom title for the homepage. We will not use the suffix on the homepage,
          * so you'll need to add the suffix manually if you want that. If set to null, we'll determine the title
          * just like the other pages.
          */
-        'homepage_title' => 'Beautylatory - Beauty Product Management System',
+        'homepage_title' => 'Apotek Parahyangan Suite - Beauty Product Management System',
     ],
 
     'description' => [
@@ -83,7 +83,7 @@ return [
          * where we don't have a description set via an associated ->seo model or via
          * the ->getDynamicSEOData() method.
          */
-        'fallback' => 'Beautylatory - Beauty Product Management System with products and SEO optimization',
+        'fallback' => 'Apotek Parahyangan Suite - Beauty Product Management System with products and SEO optimization',
     ],
 
     'image' => [
@@ -100,7 +100,7 @@ return [
          * Use this setting to specify a fallback author, which will be used on places where you
          * don't have an author set via an associated ->seo model or via the ->getDynamicSEOData() method.
          */
-        'fallback' => 'Beautylatory Admin',
+        'fallback' => 'Apotek Parahyangan Suite Admin',
     ],
 
     'twitter' => [

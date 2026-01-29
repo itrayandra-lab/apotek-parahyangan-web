@@ -17,8 +17,8 @@ class OrderFailedMail extends Mailable
     public function envelope(): Envelope
     {
         $subject = $this->reason === 'expired'
-            ? '[Beautylatory] Pembayaran Kedaluwarsa - Pesanan #'.$this->order->order_number
-            : '[Beautylatory] Pembayaran Gagal - Pesanan #'.$this->order->order_number;
+            ? '[Apotek Parahyangan Suite] Pembayaran Kedaluwarsa - Pesanan #'.$this->order->order_number
+            : '[Apotek Parahyangan Suite] Pembayaran Gagal - Pesanan #'.$this->order->order_number;
 
         return new Envelope(subject: $subject);
     }

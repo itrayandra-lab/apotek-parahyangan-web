@@ -1,4 +1,4 @@
-# Beautylatory - Comprehensive Style Guide
+# Apotek Parahyangan Suite - Comprehensive Style Guide
 
 ## Table of Contents
 1. [Project Structure & Technology Stack](#1-project-structure--technology-stack)
@@ -44,7 +44,7 @@
 - `app/Models/` - Eloquent models (Product, Category, Article, etc.)
 
 ### Project Name
-**Beautylatory** - Modern High-Tech Skincare E-commerce Platform (Laravel-based)
+**Apotek Parahyangan Suite** - Modern High-Tech Skincare E-commerce Platform (Laravel-based)
 
 ---
 
@@ -1388,7 +1388,7 @@ whitespace-pre-wrap  // Preserve and wrap
         x-data="{ isScrolled: false, isMobileMenuOpen: false }">
   <div class="container mx-auto px-6 md:px-8 flex items-center justify-between"
        :class="isScrolled ? 'glass-panel py-3' : 'bg-transparent py-6'">
-    <h1 class="text-2xl font-display font-semibold">Beautylatory</h1>
+    <h1 class="text-2xl font-display font-semibold">Apotek Parahyangan Suite</h1>
 
     <nav class="hidden md:flex gap-8">
       <a href="{{ route('products.index') }}" class="text-gray-900 hover:text-rose-500 transition-colors">
@@ -1775,7 +1775,7 @@ hidden md:block
 
 ## Conclusion
 
-This comprehensive style guide documents the **Beautylatory** design system in detail. The system emphasizes:
+This comprehensive style guide documents the **Apotek Parahyangan Suite** design system in detail. The system emphasizes:
 
 - **Modern Luxury Aesthetic**: Rose gold accents, sophisticated typography, glass effects
 - **High-Tech Feel**: Cyan accents, scanning animations, tech gradients

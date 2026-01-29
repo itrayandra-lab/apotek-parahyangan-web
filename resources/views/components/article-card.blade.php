@@ -36,7 +36,7 @@
                 {{-- Quick Read CTA (appears on hover) --}}
                 <div class="absolute bottom-6 left-0 right-0 px-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                     <button class="w-full bg-white/90 backdrop-blur text-gray-900 py-3 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg hover:bg-primary hover:text-white transition-colors">
-                        Read Article
+                        Baca Artikel
                     </button>
                 </div>
             </div>

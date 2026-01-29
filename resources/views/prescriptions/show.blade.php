@@ -147,8 +147,22 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     </svg>
                                     <div>
-                                        <strong>Apotek Parahyangan - PVJ Bandung</strong><br>
-                                        <span class="text-gray-600">Jl. Sukajadi No.137-139, Bandung</span>
+                                        <strong>Apotek Parahyangan Suite - Gedung Soho</strong><br>
+                                        <span class="text-gray-600">Gedung Soho, Jl. Karang Tinggal No.5-7, Cipedes, Kec. Sukajadi, Kota Bandung, Jawa Barat 40162</span>
+                                    </div>
+                                </li>
+                                <!-- Google Maps Iframe -->
+                                <li class="mt-4">
+                                    <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm h-48 w-full">
+                                        <iframe 
+                                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d247.56422617061807!2d107.5962971!3d-6.8872952!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e759fe763be9%3A0x79f8ca641b4cc463!2sGedung%20Soho!5e0!3m2!1sid!2sid!4v1769652523992!5m2!1sid!2sid" 
+                                            width="100%" 
+                                            height="100%" 
+                                            style="border:0;" 
+                                            allowfullscreen="" 
+                                            loading="lazy" 
+                                            referrerpolicy="no-referrer-when-downgrade"
+                                        ></iframe>
                                     </div>
                                 </li>
                                 <li class="flex items-start gap-2">

@@ -17,7 +17,7 @@
                             <div style="width: 70px; height: 70px; background-color: rgba(255,255,255,0.15); border-radius: 50%; margin: 0 auto 20px; display: inline-block; line-height: 70px;">
                                 <span style="font-size: 28px; color: #ffffff;">{{ $reason === 'expired' ? '⏰' : '✕' }}</span>
                             </div>
-                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">Beautylatory</h1>
+                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">Apotek Parahyangan Suite</h1>
                             <p style="margin: 12px 0 0; color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 400;">Pembayaran {{ $reason === 'expired' ? 'Kedaluwarsa' : 'Gagal' }}</p>
                         </td>
                     </tr>
@@ -92,9 +92,9 @@
                     <!-- Footer -->
                     <tr>
                         <td style="padding: 30px 40px; background-color: #484A56; text-align: center;">
-                            <p style="margin: 0 0 8px; font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 500;">Beautylatory</p>
+                            <p style="margin: 0 0 8px; font-size: 13px; color: rgba(255,255,255,0.9); font-weight: 500;">Apotek Parahyangan Suite</p>
                             <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.6;">
-                                Butuh bantuan? Hubungi kami di support@beautylatory.com
+                                Butuh bantuan? Hubungi kami di support@Apotek Parahyangan Suite.com
                             </p>
                         </td>
                     </tr>
@@ -103,7 +103,7 @@
                 <table role="presentation" style="max-width: 600px; margin: 25px auto 0;">
                     <tr>
                         <td style="text-align: center;">
-                            <p style="margin: 0; font-size: 11px; color: #999999;">© {{ date('Y') }} Beautylatory. All rights reserved.</p>
+                            <p style="margin: 0; font-size: 11px; color: #999999;">© {{ date('Y') }} Apotek Parahyangan Suite. All rights reserved.</p>
                         </td>
                     </tr>
                 </table>

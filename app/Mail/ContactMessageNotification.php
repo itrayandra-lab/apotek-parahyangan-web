@@ -26,7 +26,7 @@ class ContactMessageNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[Beautylatory] Pesan Baru: '.$this->contactMessage->subject,
+            subject: '[Apotek Parahyangan Suite] Pesan Baru: '.$this->contactMessage->subject,
             replyTo: [$this->contactMessage->email],
         );
     }

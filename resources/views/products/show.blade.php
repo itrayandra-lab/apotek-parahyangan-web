@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $product->name . ' - Beautylatory')
+@section('title', $product->name . ' - Apotek Parahyangan Suite')
 
 @section('styles')
 <style>
@@ -76,7 +76,7 @@
                             {{-- Top Left Badge --}}
                             <div class="absolute top-6 left-6">
                                 <span class="bg-white/90 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold tracking-[0.2em] text-gray-900 uppercase shadow-sm">
-                                    {{ $product->category->name ?? 'Beautylatory' }}
+                                    {{ $product->category->name ?? 'Apotek Parahyangan Suite' }}
                                 </span>
                             </div>
 

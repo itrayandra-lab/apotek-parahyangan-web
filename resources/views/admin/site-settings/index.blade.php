@@ -77,7 +77,7 @@
                            id="site_name"
                            name="general[site_name]"
                            value="{{ old('general.site_name', $general->firstWhere('key', 'general.site_name')?->value) }}"
-                           placeholder="Beautylatory"
+                           placeholder="Apotek Parahyangan Suite"
                            class="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-rose-300 focus:ring-2 focus:ring-rose-100 transition-all text-sm text-gray-900 placeholder-gray-400"
                            required>
                     @error('general.site_name')
@@ -123,7 +123,7 @@
                                id="instagram_url"
                                name="social_media[instagram_url]"
                                value="{{ old('social_media.instagram_url', $social->firstWhere('key', 'social_media.instagram_url')?->value) }}"
-                               placeholder="https://instagram.com/beautylatory"
+                               placeholder="https://instagram.com/Apotek Parahyangan Suite"
                                class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-rose-300 focus:ring-2 focus:ring-rose-100 transition-all text-sm text-gray-900 placeholder-gray-400">
                     </div>
                     @error('social_media.instagram_url')
@@ -142,7 +142,7 @@
                                id="facebook_url"
                                name="social_media[facebook_url]"
                                value="{{ old('social_media.facebook_url', $social->firstWhere('key', 'social_media.facebook_url')?->value) }}"
-                               placeholder="https://facebook.com/beautylatory"
+                               placeholder="https://facebook.com/Apotek Parahyangan Suite"
                                class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-rose-300 focus:ring-2 focus:ring-rose-100 transition-all text-sm text-gray-900 placeholder-gray-400">
                     </div>
                     @error('social_media.facebook_url')
@@ -161,7 +161,7 @@
                                id="youtube_url"
                                name="social_media[youtube_url]"
                                value="{{ old('social_media.youtube_url', $social->firstWhere('key', 'social_media.youtube_url')?->value) }}"
-                               placeholder="https://youtube.com/@beautylatory"
+                               placeholder="https://youtube.com/@Apotek Parahyangan Suite"
                                class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-rose-300 focus:ring-2 focus:ring-rose-100 transition-all text-sm text-gray-900 placeholder-gray-400">
                     </div>
                     @error('social_media.youtube_url')
@@ -220,7 +220,7 @@
                            id="support_email"
                            name="contact[support_email]"
                            value="{{ old('contact.support_email', $contact->firstWhere('key', 'contact.support_email')?->value) }}"
-                           placeholder="support@beautylatory.com"
+                           placeholder="support@Apotek Parahyangan Suite.com"
                            class="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-rose-300 focus:ring-2 focus:ring-rose-100 transition-all text-sm text-gray-900 placeholder-gray-400"
                            required>
                     @error('contact.support_email')
@@ -234,7 +234,7 @@
                            id="newsletter_email"
                            name="contact[newsletter_email]"
                            value="{{ old('contact.newsletter_email', $contact->firstWhere('key', 'contact.newsletter_email')?->value) }}"
-                           placeholder="newsletter@beautylatory.com"
+                           placeholder="newsletter@Apotek Parahyangan Suite.com"
                            class="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:border-rose-300 focus:ring-2 focus:ring-rose-100 transition-all text-sm text-gray-900 placeholder-gray-400">
                     @error('contact.newsletter_email')
                         <p class="text-xs text-rose-500 font-medium">{{ $message }}</p>

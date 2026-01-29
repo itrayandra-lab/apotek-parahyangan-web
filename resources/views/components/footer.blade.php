@@ -1,11 +1,11 @@
 @php
-    $siteName = \App\Models\SiteSetting::getValue('general.site_name', 'Beautylatory');
+    $siteName = \App\Models\SiteSetting::getValue('general.site_name', 'Apotek Parahyangan Suite');
     $address = \App\Models\SiteSetting::getValue('contact.address', '');
     $instagramUrl = \App\Models\SiteSetting::getValue('social_media.instagram_url', '');
     $facebookUrl = \App\Models\SiteSetting::getValue('social_media.facebook_url', '');
     $youtubeUrl = \App\Models\SiteSetting::getValue('social_media.youtube_url', '');
-    $supportEmail = \App\Models\SiteSetting::getValue('contact.support_email', 'support@beautylatory.com');
-    $newsletterEmail = \App\Models\SiteSetting::getValue('contact.newsletter_email', 'newsletter@beautylatory.com');
+    $supportEmail = \App\Models\SiteSetting::getValue('contact.support_email', 'support@Apotek Parahyangan Suite.com');
+    $newsletterEmail = \App\Models\SiteSetting::getValue('contact.newsletter_email', 'newsletter@Apotek Parahyangan Suite.com');
 @endphp
 <footer
     class="bg-gradient-to-r from-[#484A56] via-[#9C6C6D] via-[#B58687] to-[#7A5657] text-white pt-24 pb-12 border-t border-white/10">
@@ -15,9 +15,9 @@
             {{-- About --}}
             <div class="space-y-8">
                 <img
-                    src="{{ asset('images/logo-beautylatory.png') }}"
+                    src="{{ asset('images/Logo-apotek-parahyangan-suite.png') }}"
                     alt="{{ $siteName }}"
-                    class="h-8 w-auto object-contain brightness-0 invert"
+                    class="h-20 w-auto object-contain brightness-0 invert"
                 >
                 @if(! empty($address))
                     <p class="text-sm text-white/90 leading-relaxed font-light">

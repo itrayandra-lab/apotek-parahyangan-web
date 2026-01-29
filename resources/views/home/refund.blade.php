@@ -1,7 +1,7 @@
 @php
-    $supportEmail = \App\Models\SiteSetting::getValue('contact.support_email', 'support@beautylatory.com');
+    $supportEmail = \App\Models\SiteSetting::getValue('contact.support_email', 'support@Apotek Parahyangan Suite.com');
     $siteUrl = config('app.url');
-    $siteName = \App\Models\SiteSetting::getValue('general.site_name', 'Beautylatory');
+    $siteName = \App\Models\SiteSetting::getValue('general.site_name', 'Apotek Parahyangan Suite');
     $businessAddress = \App\Models\SiteSetting::getValue('contact.address', '');
     $contactPhone = \App\Models\SiteSetting::getValue('contact.phone', '');
 @endphp

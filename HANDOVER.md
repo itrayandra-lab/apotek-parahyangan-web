@@ -1,15 +1,15 @@
-# Beautylatory - Developer Handover Guide
+# Apotek Parahyangan Suite - Developer Handover Guide
 
 > Last updated: December 2024
 >
-> This document is for developers taking over the Beautylatory project.
+> This document is for developers taking over the Apotek Parahyangan Suite project.
 > For AI assistant instructions, see `CLAUDE.md`.
 
 ---
 
 ## Project Overview
 
-**Beautylatory** is an e-commerce platform for beauty/skincare products built with Laravel 12.
+**Apotek Parahyangan Suite** is an e-commerce platform for beauty/skincare products built with Laravel 12.
 
 ### What It Does
 
@@ -52,7 +52,7 @@
 
    ```bash
    git clone <repository-url>
-   cd beautylatory_laravel
+   cd Apotek Parahyangan Suite_laravel
    composer install
    npm install
    ```
@@ -67,7 +67,7 @@
 3. **Configure `.env`**
 
    ```env
-   DB_DATABASE=beautylatory
+   DB_DATABASE=Apotek Parahyangan Suite
    DB_USERNAME=your_user
    DB_PASSWORD=your_password
 

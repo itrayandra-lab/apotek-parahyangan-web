@@ -7,7 +7,7 @@
     {{-- ========================================
      1. HERO SECTION - HEALTH PORTAL STYLE
      ======================================== --}}
-    <section class="relative min-h-[500px] flex items-center pt-12 pb-12 overflow-hidden bg-slate-50">
+    <section class="relative min-h-[500px] flex items-center pb-12 overflow-hidden bg-slate-50" style="padding-top: 180px;">
         {{-- Background Decoration --}}
         <div class="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none">
             <svg class="w-full h-full text-rose-500" viewBox="0 0 100 100" fill="currentColor">
